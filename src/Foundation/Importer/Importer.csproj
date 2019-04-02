@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\MessageLevel.cs" />
     <Compile Include="Importers\IImporter.cs" />
     <Compile Include="Models\ImportLogEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
