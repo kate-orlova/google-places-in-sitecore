@@ -8,5 +8,6 @@ namespace Importer.Models
         public Guid Id { get; set; }
         public string Message { get; set; }
         public MessageLevel Level { get; set; }
+        public ImportAction Action { get; set; }
     }
 }
