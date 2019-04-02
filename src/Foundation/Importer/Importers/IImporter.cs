@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Importer.Importers
 {
-    interface IImporter
+    public interface IImporter
     {
         IList<ImportLogEntry> Publish(Guid root, PublishMode mode = PublishMode.Smart, bool publishRelatedItems = true,
             bool republishAll = false);

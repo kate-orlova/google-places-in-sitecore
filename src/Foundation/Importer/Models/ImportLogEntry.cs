@@ -3,7 +3,7 @@ using Importer.Enums;
 
 namespace Importer.Models
 {
-    class ImportLogEntry
+    public class ImportLogEntry
     {
         public Guid Id { get; set; }
         public string Message { get; set; }
