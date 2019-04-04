@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Glass.Mapper.Sc;
 using Importer.Enums;
 using Importer.Extensions;
+using Sitecore;
+using Sitecore.Configuration;
 using Sitecore.Data;
 
 namespace Importer.Importers
@@ -39,6 +41,7 @@ namespace Importer.Importers
                     Message =
                         $"Publishing item \"{rootItem.Paths.FullPath}\" [ID:{rootItem.ID}], pulishing mode: {mode}..."
                 });
+                var targetDatabase = Factory.GetDatabase(Constants.Sitecore.Databases.Web);
             }
             catch (Exception exception)
             {
