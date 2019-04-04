@@ -26,10 +26,20 @@ namespace Importer.Importers
 
             if (rootItem == null)
             {
-                logs.Add(new ImportLogEntry { Level = MessageLevel.Error, Message = $"Item {root} cannot be found" });
+                logs.Add(new ImportLogEntry {Level = MessageLevel.Error, Message = $"Item {root} cannot be found"});
                 return logs;
             }
-            throw new NotImplementedException();
+
+
+            logs.Add(new ImportLogEntry
+            {
+                Level = MessageLevel.Info,
+                Message =
+                    $"Publishing item \"{rootItem.Paths.FullPath}\" [ID:{rootItem.ID}], pulishing mode: {mode}..."
+            });
+
+
+            return logs;
         }
     }
 }
