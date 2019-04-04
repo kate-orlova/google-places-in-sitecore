@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Glass.Mapper.Sc;
 using Importer.Enums;
+using Importer.Extensions;
 using Sitecore.Data;
 
 namespace Importer.Importers
@@ -30,14 +31,24 @@ namespace Importer.Importers
                 return logs;
             }
 
-
-            logs.Add(new ImportLogEntry
+            try
             {
-                Level = MessageLevel.Info,
-                Message =
-                    $"Publishing item \"{rootItem.Paths.FullPath}\" [ID:{rootItem.ID}], pulishing mode: {mode}..."
-            });
-
+                logs.Add(new ImportLogEntry
+                {
+                    Level = MessageLevel.Info,
+                    Message =
+                        $"Publishing item \"{rootItem.Paths.FullPath}\" [ID:{rootItem.ID}], pulishing mode: {mode}..."
+                });
+            }
+            catch (Exception exception)
+            {
+                logs.Add(new ImportLogEntry
+                {
+                    Level = MessageLevel.Error,
+                    Message =
+                        $"An error has occurred while publishing an item \"{rootItem.Name}\" [ID:{rootItem.ID}]. Message: {exception.GetAllMessages()}"
+                });
+            }
 
             return logs;
         }
