@@ -3,6 +3,7 @@ using Sitecore.Publishing;
 using System;
 using System.Collections.Generic;
 using Glass.Mapper.Sc;
+using Importer.Enums;
 using Sitecore.Data;
 
 namespace Importer.Importers
@@ -23,6 +24,11 @@ namespace Importer.Importers
             var logs = new List<ImportLogEntry>();
             var rootItem = this.SitecoreContext.Database?.GetItem(new ID(root));
 
+            if (rootItem == null)
+            {
+                logs.Add(new ImportLogEntry { Level = MessageLevel.Error, Message = $"Item {root} cannot be found" });
+                return logs;
+            }
             throw new NotImplementedException();
         }
     }
