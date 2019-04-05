@@ -52,6 +52,7 @@ namespace Importer.Importers
                 };
                 var sw = new Stopwatch();
                 sw.Start();
+                var publisher = new Publisher(options);
             }
             catch (Exception exception)
             {
