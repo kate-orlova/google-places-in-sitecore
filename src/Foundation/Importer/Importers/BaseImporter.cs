@@ -42,6 +42,13 @@ namespace Importer.Importers
                         $"Publishing item \"{rootItem.Paths.FullPath}\" [ID:{rootItem.ID}], pulishing mode: {mode}..."
                 });
                 var targetDatabase = Factory.GetDatabase(Constants.Sitecore.Databases.Web);
+                var options = new PublishOptions(rootItem.Database, targetDatabase, mode, rootItem.Language, DateTime.Now)
+                {
+                    RootItem = rootItem,
+                    Deep = true,
+                    PublishRelatedItems = publishRelatedItems,
+                    RepublishAll = republishAll,
+                };
             }
             catch (Exception exception)
             {
