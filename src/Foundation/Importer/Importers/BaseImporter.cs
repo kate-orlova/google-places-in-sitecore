@@ -53,6 +53,7 @@ namespace Importer.Importers
                 var sw = new Stopwatch();
                 sw.Start();
                 var publisher = new Publisher(options);
+                var publishResult = publisher.PublishWithResult();
             }
             catch (Exception exception)
             {
