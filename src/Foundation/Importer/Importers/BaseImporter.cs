@@ -2,6 +2,7 @@
 using Sitecore.Publishing;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Glass.Mapper.Sc;
 using Importer.Enums;
 using Importer.Extensions;
@@ -49,6 +50,8 @@ namespace Importer.Importers
                     PublishRelatedItems = publishRelatedItems,
                     RepublishAll = republishAll,
                 };
+                var sw = new Stopwatch();
+                sw.Start();
             }
             catch (Exception exception)
             {
