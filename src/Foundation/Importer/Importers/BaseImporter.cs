@@ -3,6 +3,7 @@ using Sitecore.Publishing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using Glass.Mapper.Sc;
 using Importer.Enums;
 using Importer.Extensions;
@@ -55,6 +56,7 @@ namespace Importer.Importers
                 var publisher = new Publisher(options);
                 var publishResult = publisher.PublishWithResult();
                 sw.Stop();
+                var sb = new StringBuilder();
             }
             catch (Exception exception)
             {
