@@ -62,6 +62,7 @@ namespace Importer.Importers
                 sb.AppendLine($"Items skipped: {publishResult.Statistics.Skipped}");
                 sb.AppendLine($"Items created: {publishResult.Statistics.Created}");
                 sb.AppendLine($"Items updated: {publishResult.Statistics.Updated}");
+                sb.AppendLine($"Items deleted: {publishResult.Statistics.Deleted}");
             }
             catch (Exception exception)
             {
