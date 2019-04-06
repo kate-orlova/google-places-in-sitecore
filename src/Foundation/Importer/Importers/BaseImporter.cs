@@ -64,6 +64,7 @@ namespace Importer.Importers
                 sb.AppendLine($"Items updated: {publishResult.Statistics.Updated}");
                 sb.AppendLine($"Items deleted: {publishResult.Statistics.Deleted}");
                 sb.AppendLine($"Time taken: {sw.ElapsedMilliseconds} ms");
+                logs.Add(new ImportLogEntry { Level = MessageLevel.Info, Message = sb.ToString() });
             }
             catch (Exception exception)
             {
