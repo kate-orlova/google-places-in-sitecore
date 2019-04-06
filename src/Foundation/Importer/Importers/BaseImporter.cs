@@ -54,6 +54,7 @@ namespace Importer.Importers
                 sw.Start();
                 var publisher = new Publisher(options);
                 var publishResult = publisher.PublishWithResult();
+                sw.Stop();
             }
             catch (Exception exception)
             {
