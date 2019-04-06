@@ -57,6 +57,8 @@ namespace Importer.Importers
                 var publishResult = publisher.PublishWithResult();
                 sw.Stop();
                 var sb = new StringBuilder();
+                sb.AppendLine($"Item  \"{rootItem.Name}\" [ID:{rootItem.ID}] has been published.\r\n");
+                sb.AppendLine("Statistics:");
             }
             catch (Exception exception)
             {
