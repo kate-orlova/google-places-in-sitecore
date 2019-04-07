@@ -15,7 +15,11 @@ namespace Importer.Loggers
 
         public void LogImportResults(IList<ImportLogEntry> importResults)
         {
-            throw new NotImplementedException();
+            if (importResults == null)
+            {
+                return;
+            }
+            
         }
     }
 }
