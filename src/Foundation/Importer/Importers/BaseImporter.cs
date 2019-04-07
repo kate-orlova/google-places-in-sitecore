@@ -1,15 +1,14 @@
-﻿using Importer.Models;
+﻿using Glass.Mapper.Sc;
+using Importer.Enums;
+using Importer.Extensions;
+using Importer.Models;
+using Sitecore.Configuration;
+using Sitecore.Data;
 using Sitecore.Publishing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using Glass.Mapper.Sc;
-using Importer.Enums;
-using Importer.Extensions;
-using Sitecore;
-using Sitecore.Configuration;
-using Sitecore.Data;
 
 namespace Importer.Importers
 {
