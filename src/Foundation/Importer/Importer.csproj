@@ -58,6 +58,7 @@
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Importers\BaseImporter.cs" />
     <Compile Include="Importers\IImporter.cs" />
+    <Compile Include="Loggers\IImportJobLogger.cs" />
     <Compile Include="Models\ImportLogEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
