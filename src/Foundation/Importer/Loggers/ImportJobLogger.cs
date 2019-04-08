@@ -1,6 +1,8 @@
 ﻿using Importer.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Importer.Enums;
 using log4net;
 
 namespace Importer.Loggers
@@ -19,7 +21,7 @@ namespace Importer.Loggers
             {
                 return;
             }
-            
+            var generalMessages = importResults.Where(x => x.Action == ImportAction.Undefined);
         }
     }
 }
