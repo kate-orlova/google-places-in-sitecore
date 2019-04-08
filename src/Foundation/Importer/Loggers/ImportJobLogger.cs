@@ -47,6 +47,13 @@ namespace Importer.Loggers
                 {
                     stats.AppendLine(importedItem.Message);
                 }
+
+                stats.AppendLine();
+                stats.AppendLine("Rejected items");
+                foreach (var rejectedItem in rejected)
+                {
+                    stats.AppendLine(rejectedItem.Message);
+                }
             }
 
             this.logger.Info(stats.ToString());
