@@ -22,6 +22,7 @@ namespace Importer.Loggers
                 return;
             }
             var generalMessages = importResults.Where(x => x.Action == ImportAction.Undefined);
+            var imported = importResults.Where(x => x.Action == ImportAction.Imported).ToList();
             foreach (var generalMessage in generalMessages)
             {
                 this.logger.Info(generalMessage.Message);
