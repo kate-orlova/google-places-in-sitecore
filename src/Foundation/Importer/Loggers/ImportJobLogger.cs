@@ -54,6 +54,13 @@ namespace Importer.Loggers
                 {
                     stats.AppendLine(rejectedItem.Message);
                 }
+
+                stats.AppendLine();
+                stats.AppendLine("Deleted items");
+                foreach (var deletedItem in deleted)
+                {
+                    stats.AppendLine(deletedItem.Message);
+                }
             }
 
             this.logger.Info(stats.ToString());
