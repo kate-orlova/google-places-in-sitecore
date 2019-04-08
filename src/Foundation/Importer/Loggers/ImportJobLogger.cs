@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Importer.Enums;
 using log4net;
 
@@ -27,6 +28,10 @@ namespace Importer.Loggers
             {
                 this.logger.Info(generalMessage.Message);
             }
+            var stats = new StringBuilder();
+            stats.AppendLine(this.logger.Logger.Name);
+            stats.AppendLine($"{imported.Count} imported");
+            this.logger.Info(stats.ToString());
         }
     }
 }
