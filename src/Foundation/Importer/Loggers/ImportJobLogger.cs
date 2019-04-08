@@ -22,6 +22,10 @@ namespace Importer.Loggers
                 return;
             }
             var generalMessages = importResults.Where(x => x.Action == ImportAction.Undefined);
+            foreach (var generalMessage in generalMessages)
+            {
+                this.logger.Info(generalMessage.Message);
+            }
         }
     }
 }
