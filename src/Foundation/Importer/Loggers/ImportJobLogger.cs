@@ -26,6 +26,7 @@ namespace Importer.Loggers
             var generalMessages = importResults.Where(x => x.Action == ImportAction.Undefined);
             var imported = importResults.Where(x => x.Action == ImportAction.Imported).ToList();
             var rejected = importResults.Where(x => x.Action == ImportAction.Rejected).ToList();
+            var deleted = importResults.Where(x => x.Action == ImportAction.Deleted).ToList();
 
             foreach (var generalMessage in generalMessages)
             {
@@ -33,11 +34,13 @@ namespace Importer.Loggers
             }
 
             var stats = new StringBuilder();
-            if (imported.Any() || rejected.Any())
+            if (imported.Any() || rejected.Any() || deleted.Any())
             {
                 stats.AppendLine(this.logger.Logger.Name);
                 stats.AppendLine($"{imported.Count} imported");
                 stats.AppendLine($"{rejected.Count} rejected");
+                stats.AppendLine($"{deleted.Count} deleted");
+                stats.AppendLine();
             }
 
             this.logger.Info(stats.ToString());
