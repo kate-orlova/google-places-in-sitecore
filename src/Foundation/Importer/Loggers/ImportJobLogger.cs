@@ -1,16 +1,16 @@
-﻿using Importer.Models;
-using System;
+﻿using Importer.Enums;
+using Importer.Models;
+using log4net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Importer.Enums;
-using log4net;
 
 namespace Importer.Loggers
 {
     public class ImportJobLogger : IImportJobLogger
     {
         private readonly ILog logger;
+
         public ImportJobLogger(ILog logger)
         {
             this.logger = logger;
@@ -22,15 +22,24 @@ namespace Importer.Loggers
             {
                 return;
             }
+
             var generalMessages = importResults.Where(x => x.Action == ImportAction.Undefined);
             var imported = importResults.Where(x => x.Action == ImportAction.Imported).ToList();
+            var rejected = importResults.Where(x => x.Action == ImportAction.Rejected).ToList();
+
             foreach (var generalMessage in generalMessages)
             {
                 this.logger.Info(generalMessage.Message);
             }
+
             var stats = new StringBuilder();
-            stats.AppendLine(this.logger.Logger.Name);
-            stats.AppendLine($"{imported.Count} imported");
+            if (imported.Any() || rejected.Any())
+            {
+                stats.AppendLine(this.logger.Logger.Name);
+                stats.AppendLine($"{imported.Count} imported");
+                stats.AppendLine($"{rejected.Count} rejected");
+            }
+
             this.logger.Info(stats.ToString());
         }
     }
