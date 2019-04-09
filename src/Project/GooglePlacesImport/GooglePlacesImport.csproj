@@ -87,6 +87,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitecronTasks\ImportGooglePlaces.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Foundation\Importer\Importer.csproj">
+      <Project>{866A81E1-A495-4EB1-ADAB-CBBF17261D72}</Project>
+      <Name>Importer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
