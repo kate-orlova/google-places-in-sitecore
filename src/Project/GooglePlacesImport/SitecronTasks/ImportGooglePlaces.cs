@@ -18,7 +18,7 @@ namespace GooglePlacesImport.SitecronTasks
 
         public void Execute(IJobExecutionContext context)
         {
-            throw new System.NotImplementedException();
+            var jobDataMap = context.JobDetail.JobDataMap;
         }
     }
 }
