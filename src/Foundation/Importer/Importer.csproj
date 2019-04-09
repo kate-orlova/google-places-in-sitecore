@@ -59,6 +59,7 @@
     <Compile Include="Enums\ImportAction.cs" />
     <Compile Include="Enums\MessageLevel.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Importers\BaseImporter.cs" />
     <Compile Include="Importers\IImporter.cs" />
     <Compile Include="Loggers\IImportJobLogger.cs" />
