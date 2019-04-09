@@ -54,6 +54,9 @@
     <Reference Include="Sitecore.Logging">
       <HintPath>..\..\..\packages\Sitecore.Logging.9.0.171219\lib\NET462\Sitecore.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="SiteCron">
+      <HintPath>..\..\..\packages\SiteCron.3.0.4\lib\net452\SiteCron.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
