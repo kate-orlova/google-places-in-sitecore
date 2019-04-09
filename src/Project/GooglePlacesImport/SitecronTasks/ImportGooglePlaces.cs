@@ -1,6 +1,8 @@
-﻿using Importer.Loggers;
+﻿using Importer.Extensions;
+using Importer.Loggers;
 using Quartz;
 using log4net;
+using Sitecron.SitecronSettings;
 
 
 namespace GooglePlacesImport.SitecronTasks
@@ -19,6 +21,8 @@ namespace GooglePlacesImport.SitecronTasks
         public void Execute(IJobExecutionContext context)
         {
             var jobDataMap = context.JobDetail.JobDataMap;
+            var items = jobDataMap.GetString(SitecronConstants.FieldNames.Items);
+            var siteRoots = items.ToGuidList("|");
         }
     }
 }
