@@ -39,6 +39,11 @@ namespace GooglePlacesImport.SitecronTasks
                     var sites = SiteManager.GetSites()
                         .Where(x => string.Equals(x.Properties["rootPath"], rootPath, StringComparison.OrdinalIgnoreCase))
                         .ToList();
+                    foreach (var site in sites)
+                    {
+                        var siteContext = SiteContext.GetSite(site.Name);
+                        this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} - site in processing RootPath: {siteContext.RootPath}; Language: {siteContext.Language}; Database: {siteContext.Database}");
+                    }
                 }
             }
         }
