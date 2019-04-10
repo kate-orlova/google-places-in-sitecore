@@ -64,6 +64,7 @@
     <Compile Include="Importers\IImporter.cs" />
     <Compile Include="Loggers\IImportJobLogger.cs" />
     <Compile Include="Loggers\ImportJobLogger.cs" />
+    <Compile Include="Models\ImportLog.cs" />
     <Compile Include="Models\ImportLogEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
