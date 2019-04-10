@@ -5,8 +5,12 @@ using Importer.Extensions;
 using Importer.Loggers;
 using Quartz;
 using log4net;
+using Microsoft.Extensions.DependencyInjection;
 using Sitecore;
 using Sitecore.Data;
+using Sitecore.Data.Events;
+using Sitecore.DependencyInjection;
+using Sitecore.SecurityModel;
 using Sitecore.Sites;
 using Sitecron.SitecronSettings;
 
@@ -43,6 +47,14 @@ namespace GooglePlacesImport.SitecronTasks
                     {
                         var siteContext = SiteContext.GetSite(site.Name);
                         this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} - site in processing RootPath: {siteContext.RootPath}; Language: {siteContext.Language}; Database: {siteContext.Database}");
+                        using (new SecurityDisabler())
+                        using (new SiteContextSwitcher(siteContext))
+                        using (new EventDisabler())
+                        using (new BulkUpdateContext())
+                        using (var innerScope = ServiceLocator.ServiceProvider
+                            .GetRequiredService<IServiceScopeFactory>().CreateScope())
+                        {
+                        }
                     }
                 }
             }
