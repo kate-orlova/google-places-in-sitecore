@@ -51,6 +51,10 @@
     <Reference Include="Quartz">
       <HintPath>..\..\..\packages\Quartz.2.5.0\lib\net40\Quartz.dll</HintPath>
     </Reference>
+    <Reference Include="Sitecore.Kernel, Version=11.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Sitecore.Kernel.9.0.171219\lib\NET462\Sitecore.Kernel.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.Logging">
       <HintPath>..\..\..\packages\Sitecore.Logging.9.0.171219\lib\NET462\Sitecore.Logging.dll</HintPath>
     </Reference>
