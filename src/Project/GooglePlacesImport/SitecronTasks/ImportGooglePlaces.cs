@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GooglePlacesImport.Interfaces;
+using Importer.Enums;
 using Importer.Extensions;
 using Importer.Loggers;
 using Quartz;
@@ -54,6 +56,13 @@ namespace GooglePlacesImport.SitecronTasks
                         using (var innerScope = ServiceLocator.ServiceProvider
                             .GetRequiredService<IServiceScopeFactory>().CreateScope())
                         {
+                            var logs = innerScope.ServiceProvider.GetService<IGooglePlacesImporter>().Run();
+                            var currentImportWasSuccessful =
+                                logs.Entries != null &&
+                                logs.Entries.Any(x => x.Action != ImportAction.Undefined);
+                            //TODO: itemsToPublish.Add();
+                            _importJobLogger.LogImportResults(logs.Entries);
+                            importWasSuccessful = importWasSuccessful || currentImportWasSuccessful;
                         }
                     }
                 }
