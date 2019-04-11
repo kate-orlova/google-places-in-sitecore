@@ -47,22 +47,33 @@ namespace GooglePlacesImport.SitecronTasks
                         .ToList();
                     foreach (var site in sites)
                     {
-                        var siteContext = SiteContext.GetSite(site.Name);
-                        this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} - site in processing RootPath: {siteContext.RootPath}; Language: {siteContext.Language}; Database: {siteContext.Database}");
-                        using (new SecurityDisabler())
-                        using (new SiteContextSwitcher(siteContext))
-                        using (new EventDisabler())
-                        using (new BulkUpdateContext())
-                        using (var innerScope = ServiceLocator.ServiceProvider
-                            .GetRequiredService<IServiceScopeFactory>().CreateScope())
+                        try
                         {
-                            var logs = innerScope.ServiceProvider.GetService<IGooglePlacesImporter>().Run();
-                            var currentImportWasSuccessful =
-                                logs.Entries != null &&
-                                logs.Entries.Any(x => x.Action != ImportAction.Undefined);
-                            //TODO: itemsToPublish.Add();
-                            _importJobLogger.LogImportResults(logs.Entries);
-                            importWasSuccessful = importWasSuccessful || currentImportWasSuccessful;
+                            var siteContext = SiteContext.GetSite(site.Name);
+                            this._logger.Info(
+                                $"Sitecron - Job {nameof(ImportGooglePlaces)} - site in processing RootPath: {siteContext.RootPath}; Language: {siteContext.Language}; Database: {siteContext.Database}");
+                            using (new SecurityDisabler())
+                            using (new SiteContextSwitcher(siteContext))
+                            using (new EventDisabler())
+                            using (new BulkUpdateContext())
+                            using (var innerScope = ServiceLocator.ServiceProvider
+                                .GetRequiredService<IServiceScopeFactory>().CreateScope())
+                            {
+                                var logs = innerScope.ServiceProvider.GetService<IGooglePlacesImporter>().Run();
+                                var currentImportWasSuccessful =
+                                    logs.Entries != null &&
+                                    logs.Entries.Any(x => x.Action != ImportAction.Undefined);
+                                //TODO: itemsToPublish.Add();
+                                _importJobLogger.LogImportResults(logs.Entries);
+                                importWasSuccessful = importWasSuccessful || currentImportWasSuccessful;
+                            }
+
+                            this._logger.Info(
+                                $"Sitecron - Job {nameof(ImportGooglePlaces)} - import finished successfully");
+                        }
+                        catch (Exception e)
+                        {
+                            this._logger.Error($"Sitecron - Job {nameof(ImportGooglePlaces)} - error during processing", e);
                         }
                     }
                 }
