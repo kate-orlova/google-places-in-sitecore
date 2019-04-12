@@ -87,7 +87,22 @@ namespace GooglePlacesImport.SitecronTasks
                         this._logger.Error($"Sitecron - Job {nameof(ImportGooglePlaces)} - error during site processing", e);
                     }
                 }
+                if (importWasSuccessful)
+                {
+                    this.RebuildIndexes();
+                    this.PublishItems(itemsToPublish);
+                }
             }
+        }
+
+        private void PublishItems(List<Guid> itemsToPublish)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void RebuildIndexes()
+        {
+            throw new NotImplementedException();
         }
     }
 }
