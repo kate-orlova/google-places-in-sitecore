@@ -102,6 +102,10 @@ namespace GooglePlacesImport.SitecronTasks
                     this._logger.Error($"Sitecron - Job {nameof(ImportGooglePlaces)} - error", e);
                 }
             }
+            else
+            {
+                this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} - skipped because no one site is selected");
+            }
         }
 
         private void PublishItems(List<Guid> itemsToPublish)
