@@ -32,79 +32,89 @@ namespace GooglePlacesImport.SitecronTasks
 
         public void Execute(IJobExecutionContext context)
         {
-            var jobDataMap = context.JobDetail.JobDataMap;
-            var items = jobDataMap.GetString(SitecronConstants.FieldNames.Items);
-            var siteRoots = items.ToGuidList("|");
-            if (siteRoots.Any())
+            try
             {
-                var itemsToPublish = new List<Guid>();
-                var importWasSuccessful = false;
-                try
+                var jobDataMap = context.JobDetail.JobDataMap;
+                var items = jobDataMap.GetString(SitecronConstants.FieldNames.Items);
+                var siteRoots = items.ToGuidList("|");
+                if (siteRoots.Any())
                 {
-                    foreach (var siteRoot in siteRoots)
+                    var itemsToPublish = new List<Guid>();
+                    var importWasSuccessful = false;
+                    try
                     {
-                        try
+                        foreach (var siteRoot in siteRoots)
                         {
-                            var rootPath = Database.GetDatabase(Importer.Constants.Sitecore.Databases.Master)
-                                ?.GetItem(new ID(siteRoot))?.Paths.FullPath;
-                            var sites = SiteManager.GetSites()
-                                .Where(x => string.Equals(x.Properties["rootPath"], rootPath,
-                                    StringComparison.OrdinalIgnoreCase))
-                                .ToList();
-                            foreach (var site in sites)
+                            try
                             {
-                                try
+                                var rootPath = Database.GetDatabase(Importer.Constants.Sitecore.Databases.Master)
+                                    ?.GetItem(new ID(siteRoot))?.Paths.FullPath;
+                                var sites = SiteManager.GetSites()
+                                    .Where(x => string.Equals(x.Properties["rootPath"], rootPath,
+                                        StringComparison.OrdinalIgnoreCase))
+                                    .ToList();
+                                foreach (var site in sites)
                                 {
-                                    var siteContext = SiteContext.GetSite(site.Name);
-                                    this._logger.Info(
-                                        $"Sitecron - Job {nameof(ImportGooglePlaces)} - site in processing RootPath: {siteContext.RootPath}; Language: {siteContext.Language}; Database: {siteContext.Database}");
-                                    using (new SecurityDisabler())
-                                    using (new SiteContextSwitcher(siteContext))
-                                    using (new EventDisabler())
-                                    using (new BulkUpdateContext())
-                                    using (var innerScope = ServiceLocator.ServiceProvider
-                                        .GetRequiredService<IServiceScopeFactory>().CreateScope())
+                                    try
                                     {
-                                        var logs = innerScope.ServiceProvider.GetService<IGooglePlacesImporter>().Run();
-                                        var currentImportWasSuccessful =
-                                            logs.Entries != null &&
-                                            logs.Entries.Any(x => x.Action != ImportAction.Undefined);
-                                        //TODO: itemsToPublish.Add();
-                                        _importJobLogger.LogImportResults(logs.Entries);
-                                        importWasSuccessful = importWasSuccessful || currentImportWasSuccessful;
-                                    }
+                                        var siteContext = SiteContext.GetSite(site.Name);
+                                        this._logger.Info(
+                                            $"Sitecron - Job {nameof(ImportGooglePlaces)} - site in processing RootPath: {siteContext.RootPath}; Language: {siteContext.Language}; Database: {siteContext.Database}");
+                                        using (new SecurityDisabler())
+                                        using (new SiteContextSwitcher(siteContext))
+                                        using (new EventDisabler())
+                                        using (new BulkUpdateContext())
+                                        using (var innerScope = ServiceLocator.ServiceProvider
+                                            .GetRequiredService<IServiceScopeFactory>().CreateScope())
+                                        {
+                                            var logs = innerScope.ServiceProvider.GetService<IGooglePlacesImporter>()
+                                                .Run();
+                                            var currentImportWasSuccessful =
+                                                logs.Entries != null &&
+                                                logs.Entries.Any(x => x.Action != ImportAction.Undefined);
+                                            //TODO: itemsToPublish.Add();
+                                            _importJobLogger.LogImportResults(logs.Entries);
+                                            importWasSuccessful = importWasSuccessful || currentImportWasSuccessful;
+                                        }
 
-                                    this._logger.Info(
-                                        $"Sitecron - Job {nameof(ImportGooglePlaces)} - import finished successfully");
-                                }
-                                catch (Exception e)
-                                {
-                                    this._logger.Error(
-                                        $"Sitecron - Job {nameof(ImportGooglePlaces)} - error during processing", e);
+                                        this._logger.Info(
+                                            $"Sitecron - Job {nameof(ImportGooglePlaces)} - import finished successfully");
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        this._logger.Error(
+                                            $"Sitecron - Job {nameof(ImportGooglePlaces)} - error during processing",
+                                            e);
+                                    }
                                 }
                             }
+                            catch (Exception e)
+                            {
+                                this._logger.Error(
+                                    $"Sitecron - Job {nameof(ImportGooglePlaces)} - error during site processing", e);
+                            }
                         }
-                        catch (Exception e)
+
+                        if (importWasSuccessful)
                         {
-                            this._logger.Error(
-                                $"Sitecron - Job {nameof(ImportGooglePlaces)} - error during site processing", e);
+                            this.RebuildIndexes();
+                            this.PublishItems(itemsToPublish);
                         }
                     }
-
-                    if (importWasSuccessful)
+                    catch (Exception e)
                     {
-                        this.RebuildIndexes();
-                        this.PublishItems(itemsToPublish);
+                        this._logger.Error($"Sitecron - Job {nameof(ImportGooglePlaces)} - error", e);
                     }
                 }
-                catch (Exception e)
+                else
                 {
-                    this._logger.Error($"Sitecron - Job {nameof(ImportGooglePlaces)} - error", e);
+                    this._logger.Info(
+                        $"Sitecron - Job {nameof(ImportGooglePlaces)} - skipped because no one site is selected");
                 }
             }
-            else
+            catch (Exception e)
             {
-                this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} - skipped because no one site is selected");
+                this._logger.Error($"Sitecron - Job {nameof(ImportGooglePlaces)} - error", e);
             }
         }
 
