@@ -116,6 +116,7 @@ namespace GooglePlacesImport.SitecronTasks
             {
                 this._logger.Error($"Sitecron - Job {nameof(ImportGooglePlaces)} - error", e);
             }
+            this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} has finished successfully");
         }
 
         private void PublishItems(List<Guid> itemsToPublish)
