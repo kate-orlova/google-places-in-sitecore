@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\ItemGuids.cs" />
     <Compile Include="Constants\Sitecore.cs" />
     <Compile Include="Enums\ImportAction.cs" />
     <Compile Include="Enums\MessageLevel.cs" />
