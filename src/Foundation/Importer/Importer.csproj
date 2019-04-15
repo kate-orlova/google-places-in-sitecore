@@ -63,8 +63,10 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Importers\BaseImporter.cs" />
     <Compile Include="Importers\IImporter.cs" />
+    <Compile Include="ImportProcessors\IBaseImportItemProcessor.cs" />
     <Compile Include="Loggers\IImportJobLogger.cs" />
     <Compile Include="Loggers\ImportJobLogger.cs" />
+    <Compile Include="Models\IGlassBase.cs" />
     <Compile Include="Models\ImportLog.cs" />
     <Compile Include="Models\ImportLogEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
