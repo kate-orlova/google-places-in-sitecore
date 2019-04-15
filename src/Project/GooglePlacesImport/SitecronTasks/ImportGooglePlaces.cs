@@ -72,7 +72,9 @@ namespace GooglePlacesImport.SitecronTasks
                                             var currentImportWasSuccessful =
                                                 logs.Entries != null &&
                                                 logs.Entries.Any(x => x.Action != ImportAction.Undefined);
-                                            //TODO: itemsToPublish.Add();
+
+                                            itemsToPublish.Add(Importer.Constants.ItemGuids.ItemsForGooglePlaces);
+
                                             _importJobLogger.LogImportResults(logs.Entries);
                                             importWasSuccessful = importWasSuccessful || currentImportWasSuccessful;
                                         }
