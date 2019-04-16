@@ -2,6 +2,7 @@
 {
     public class ItemDto
     {
+        public string PlaceId { get; set; }
         public GooglePlaceDto GooglePlaceData { get; set; }
     }
 }
