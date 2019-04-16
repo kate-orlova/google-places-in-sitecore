@@ -70,6 +70,7 @@
     <Compile Include="Models\IGlassBase.cs" />
     <Compile Include="Models\ImportLog.cs" />
     <Compile Include="Models\ImportLogEntry.cs" />
+    <Compile Include="Models\ItemDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
