@@ -12,5 +12,7 @@ namespace Importer.Models
         public string ContactFormattedPhoneNumber { get; set; }
         public string ContactOpeningHours { get; set; }
         public DateTime ContactDataImported { get; set; }
+        public decimal AtmosphereRating { get; set; }
+        public DateTime AtmosphereDataImported { get; set; }
     }
 }
