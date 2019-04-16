@@ -108,6 +108,7 @@
     <Compile Include="DependencyInjection\RegisterServices.cs" />
     <Compile Include="Importers\GooglePlacesImporter.cs" />
     <Compile Include="Interfaces\IGooglePlacesImporter.cs" />
+    <Compile Include="Interfaces\IGooglePlacesItemProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitecronTasks\ImportGooglePlaces.cs" />
   </ItemGroup>
