@@ -9,5 +9,8 @@ namespace Importer.Models
         public string BasicName { get; set; }
         public string BasicUrl { get; set; }
         public DateTime BasicDataImported { get; set; }
+        public string ContactFormattedPhoneNumber { get; set; }
+        public string ContactOpeningHours { get; set; }
+        public DateTime ContactDataImported { get; set; }
     }
 }
