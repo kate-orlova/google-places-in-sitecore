@@ -63,6 +63,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Importers\BaseImporter.cs" />
     <Compile Include="Importers\IImporter.cs" />
+    <Compile Include="ImportProcessors\BaseImportItemProcessor.cs" />
     <Compile Include="ImportProcessors\IBaseImportItemProcessor.cs" />
     <Compile Include="Loggers\IImportJobLogger.cs" />
     <Compile Include="Loggers\ImportJobLogger.cs" />
