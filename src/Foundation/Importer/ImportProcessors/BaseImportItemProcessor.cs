@@ -9,10 +9,12 @@ namespace Importer.ImportProcessors
     public abstract class BaseImportItemProcessor<TItem, TImportObj> : IBaseImportItemProcessor<TItem, TImportObj> where TItem : GlassBase, IGlassBase
     {
         protected ISitecoreContext Context { get; }
+        protected readonly string LocationPathOverride;
 
         protected BaseImportItemProcessor(ISitecoreContext sitecoreContext, string locationPathOverride = null)
         {
             this.Context = sitecoreContext;
+            this.LocationPathOverride = locationPathOverride;
         }
 
         public TItem ProcessItem(TImportObj importObj, IEnumerable<Language> languageVersions, string pathOverride = null)
