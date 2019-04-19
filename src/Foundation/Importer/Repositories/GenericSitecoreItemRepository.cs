@@ -34,12 +34,15 @@ namespace Importer.Repositories
 
         public TItem Create(string itemName, GlassBase parent, Language language = null)
         {
-            throw new NotImplementedException();
+            return this.context.Create<TItem, GlassBase>(parent, itemName, language);
         }
 
         public TItem Create(string itemName, string path, Language language = null)
         {
-            throw new NotImplementedException();
+            var parent = language == null
+                ? this.context.GetItem<GlassBase>(path)
+                : this.context.GetItem<GlassBase>(path, language);
+            return this.Create(itemName, parent, language);
         }
 
         public void Save(TItem item)
