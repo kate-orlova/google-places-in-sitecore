@@ -24,7 +24,7 @@ namespace Importer.Repositories
 
         public TItem GetOneByQuery(string query)
         {
-            throw new NotImplementedException();
+            return this.context.QuerySingle<TItem>(query, inferType: true);
         }
 
         public IEnumerable<TItem> GetByQuery(string query, Language language = null)
