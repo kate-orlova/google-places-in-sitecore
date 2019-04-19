@@ -39,6 +39,9 @@
     <Reference Include="Glass.Mapper.Sc.Mvc">
       <HintPath>..\..\..\packages\Glass.Mapper.Sc.Core.4.5.0.4\lib\Mvc52\Glass.Mapper.Sc.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <HintPath>..\..\..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.Kernel">
       <HintPath>..\..\..\packages\Sitecore.Kernel.9.0.171219\lib\NET462\Sitecore.Kernel.dll</HintPath>
     </Reference>

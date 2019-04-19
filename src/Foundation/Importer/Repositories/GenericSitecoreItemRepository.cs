@@ -2,14 +2,16 @@
 using Sitecore.Globalization;
 using System;
 using System.Collections.Generic;
+using Glass.Mapper.Sc;
 
 namespace Importer.Repositories
 {
     public class GenericSitecoreItemRepository<TItem> : IGenericSitecoreItemRepository<TItem> where TItem : GlassBase, IGlassBase
     {
+        private readonly ISitecoreContext context;
         public TItem GetByGuid(Guid id)
         {
-            throw new NotImplementedException();
+            return this.context.GetItem<TItem>(id, inferType: true);
         }
 
         public IEnumerable<TItem> GetByPath(string path, Language language = null, bool mapDatabaseFields = false)
