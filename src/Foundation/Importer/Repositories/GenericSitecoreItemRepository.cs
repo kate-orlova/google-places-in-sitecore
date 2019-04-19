@@ -47,7 +47,7 @@ namespace Importer.Repositories
 
         public void Save(TItem item)
         {
-            throw new NotImplementedException();
+            this.context.Save(item, silent: true);
         }
     }
 }
