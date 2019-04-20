@@ -29,7 +29,9 @@ namespace Importer.Repositories
 
         public IEnumerable<TItem> GetByQuery(string query, Language language = null)
         {
-            throw new NotImplementedException();
+            return language == null
+                ? this.context.Query<TItem>(query, inferType: true)
+                : this.context.Query<TItem>(query, language, inferType: true);
         }
 
         public TItem Create(string itemName, GlassBase parent, Language language = null)
