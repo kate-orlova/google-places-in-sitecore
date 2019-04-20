@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Glass.Mapper.Sc;
 using Importer.Search;
+using Sitecore.Data;
 
 namespace Importer.Repositories
 {
@@ -50,6 +51,10 @@ namespace Importer.Repositories
         public void Save(TItem item)
         {
             this.context.Save(item, silent: true);
+            var id = new ID(item.Id);
+            this.context.Database.Caches.DataCache.RemoveItemInformation(id);
+            this.context.Database.Caches.ItemCache.RemoveItem(id);
+            this.context.Database.Caches.PathCache.RemoveKeysContaining(id.ToString());
         }
     }
 }
