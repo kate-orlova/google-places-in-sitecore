@@ -13,6 +13,13 @@ namespace Importer.Repositories
     {
         private readonly ISitecoreContext context;
         private readonly IBaseSearchManager<TItem> searchManager;
+
+        public GenericSitecoreItemRepository(ISitecoreContext sitecoreContext, IBaseSearchManager<TItem> searchManager)
+        {
+            this.context = sitecoreContext;
+            this.searchManager = searchManager;
+        }
+
         public TItem GetByGuid(Guid id)
         {
             return this.context.GetItem<TItem>(id, inferType: true);
