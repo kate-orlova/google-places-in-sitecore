@@ -59,6 +59,7 @@ namespace Importer.ImportProcessors
             Language language = null,
             Func<TItem, bool> defaultItemSelector = null)
         {
+            if (string.IsNullOrEmpty(targetIdString)) return null;
             var itemLocation = locationOverride ?? this.CalculateItemLocation(importObj);
             var items = this.GetItems(itemLocation, language);
             var matchedItems = items.Where(x => targetIdString.Equals(this.CalculateItemId(x), StringComparison.OrdinalIgnoreCase))
