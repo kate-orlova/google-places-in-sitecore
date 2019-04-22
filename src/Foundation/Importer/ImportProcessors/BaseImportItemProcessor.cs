@@ -1,4 +1,5 @@
-﻿using Glass.Mapper.Sc;
+﻿using System;
+using Glass.Mapper.Sc;
 using Importer.Models;
 using Importer.Search;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ namespace Importer.ImportProcessors
         protected virtual bool CacheItems => true;
         protected IDictionary<string, IList<TItem>> ItemsCache;
         protected IGenericSitecoreItemRepository<TItem> GenericItemRepository { get; }
+        protected abstract Func<TImportObj, string> IdStringFromImportObj { get; }
 
         protected BaseImportItemProcessor(ISitecoreContext sitecoreContext, string locationPathOverride = null)
         {
@@ -30,7 +32,13 @@ namespace Importer.ImportProcessors
         public TItem ProcessItem(TImportObj importObj, IEnumerable<Language> languageVersions, string pathOverride = null)
         {
             var defaultLanguage = LanguageManager.DefaultLanguage;
+            var newId = this.CalculateItemId(importObj);
             return null;
+        }
+
+        protected string CalculateItemId(TImportObj importObj)
+        {
+            return this.IdStringFromImportObj(importObj);
         }
     }
 }
