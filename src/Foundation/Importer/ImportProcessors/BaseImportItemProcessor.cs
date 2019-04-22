@@ -1,17 +1,19 @@
-﻿using System;
-using Glass.Mapper.Sc;
+﻿using Glass.Mapper.Sc;
 using Importer.Models;
+using Importer.Repositories;
 using Importer.Search;
 using Microsoft.Extensions.DependencyInjection;
+using Sitecore.Data.Managers;
 using Sitecore.DependencyInjection;
 using Sitecore.Globalization;
+using System;
 using System.Collections.Generic;
-using Importer.Repositories;
-using Sitecore.Data.Managers;
+using System.Linq;
 
 namespace Importer.ImportProcessors
 {
-    public abstract class BaseImportItemProcessor<TItem, TImportObj> : IBaseImportItemProcessor<TItem, TImportObj> where TItem : GlassBase, IGlassBase
+    public abstract class BaseImportItemProcessor<TItem, TImportObj> : IBaseImportItemProcessor<TItem, TImportObj>
+        where TItem : GlassBase, IGlassBase
     {
         protected ISitecoreContext Context { get; }
         protected readonly string LocationPathOverride;
@@ -19,7 +21,9 @@ namespace Importer.ImportProcessors
         protected IDictionary<string, IList<TItem>> ItemsCache;
         protected IGenericSitecoreItemRepository<TItem> GenericItemRepository { get; }
         protected abstract Func<TImportObj, string> IdStringFromImportObj { get; }
+        protected abstract Func<TItem, string> IdStringFromSitecoreItem { get; }
         protected abstract string DefaultLocation { get; }
+
         protected virtual string ItemLocation =>
             this.LocationPathOverride
             ?? this.DefaultLocation;
@@ -33,7 +37,7 @@ namespace Importer.ImportProcessors
             this.GenericItemRepository = new GenericSitecoreItemRepository<TItem>(sitecoreContext, searchManager);
         }
 
-        public TItem ProcessItem(TImportObj importObj, IEnumerable<Language> languageVersions, string pathOverride = null)
+        public virtual TItem ProcessItem(TImportObj importObj, IEnumerable<Language> languageVersions, string pathOverride = null)
         {
             var defaultLanguage = LanguageManager.DefaultLanguage;
             var newId = this.CalculateItemId(importObj);
@@ -48,15 +52,40 @@ namespace Importer.ImportProcessors
             throw new NotImplementedException();
         }
 
-        private object GetItem(string newId, TImportObj importObj, string itemLocationInTargetContext, Language defaultLanguage)
+        public virtual TItem GetItem(
+            string targetIdString,
+            TImportObj importObj = default(TImportObj),
+            string locationOverride = null,
+            Language language = null,
+            Func<TItem, bool> defaultItemSelector = null)
+        {
+            var itemLocation = locationOverride ?? this.CalculateItemLocation(importObj);
+            var items = this.GetItems(itemLocation, language);
+            var matchedItems = items.Where(x => targetIdString.Equals(this.CalculateItemId(x), StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (!matchedItems.Any() && defaultItemSelector != null)
+            {
+                matchedItems = items.Where(defaultItemSelector).ToList();
+            }
+
+            return matchedItems.FirstOrDefault();
+        }
+
+        public virtual IEnumerable<TItem> GetItems(string rootPath, Language language = null)
         {
             throw new NotImplementedException();
         }
 
+        protected string CalculateItemId(TItem item)
+        {
+            return this.IdStringFromSitecoreItem(item);
+        }
         protected string CalculateItemId(TImportObj importObj)
         {
             return this.IdStringFromImportObj(importObj);
         }
+
         protected virtual string CalculateItemLocation(TImportObj importObj)
         {
             return this.ItemLocation;
