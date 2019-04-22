@@ -6,6 +6,7 @@ using Sitecore.DependencyInjection;
 using Sitecore.Globalization;
 using System.Collections.Generic;
 using Importer.Repositories;
+using Sitecore.Data.Managers;
 
 namespace Importer.ImportProcessors
 {
@@ -28,7 +29,8 @@ namespace Importer.ImportProcessors
 
         public TItem ProcessItem(TImportObj importObj, IEnumerable<Language> languageVersions, string pathOverride = null)
         {
-            throw new System.NotImplementedException();
+            var defaultLanguage = LanguageManager.DefaultLanguage;
+            return null;
         }
     }
 }
