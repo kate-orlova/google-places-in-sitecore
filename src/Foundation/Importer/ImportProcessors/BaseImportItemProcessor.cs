@@ -38,7 +38,19 @@ namespace Importer.ImportProcessors
             var defaultLanguage = LanguageManager.DefaultLanguage;
             var newId = this.CalculateItemId(importObj);
             var itemLocationInTargetContext = pathOverride ?? this.CalculateItemLocation(importObj);
+            var defaultItem = this.GetItem(newId, importObj, itemLocationInTargetContext, defaultLanguage)
+                              ?? this.CreateItem(importObj, itemLocationInTargetContext, defaultLanguage);
             return null;
+        }
+
+        private object CreateItem(TImportObj importObj, string itemLocationInTargetContext, Language defaultLanguage)
+        {
+            throw new NotImplementedException();
+        }
+
+        private object GetItem(string newId, TImportObj importObj, string itemLocationInTargetContext, Language defaultLanguage)
+        {
+            throw new NotImplementedException();
         }
 
         protected string CalculateItemId(TImportObj importObj)
