@@ -19,6 +19,10 @@ namespace Importer.ImportProcessors
         protected IDictionary<string, IList<TItem>> ItemsCache;
         protected IGenericSitecoreItemRepository<TItem> GenericItemRepository { get; }
         protected abstract Func<TImportObj, string> IdStringFromImportObj { get; }
+        protected abstract string DefaultLocation { get; }
+        protected virtual string ItemLocation =>
+            this.LocationPathOverride
+            ?? this.DefaultLocation;
 
         protected BaseImportItemProcessor(ISitecoreContext sitecoreContext, string locationPathOverride = null)
         {
@@ -33,12 +37,17 @@ namespace Importer.ImportProcessors
         {
             var defaultLanguage = LanguageManager.DefaultLanguage;
             var newId = this.CalculateItemId(importObj);
+            var itemLocationInTargetContext = pathOverride ?? this.CalculateItemLocation(importObj);
             return null;
         }
 
         protected string CalculateItemId(TImportObj importObj)
         {
             return this.IdStringFromImportObj(importObj);
+        }
+        protected virtual string CalculateItemLocation(TImportObj importObj)
+        {
+            return this.ItemLocation;
         }
     }
 }
