@@ -9,6 +9,7 @@ using Sitecore.Globalization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Importer.Enums;
 
 namespace Importer.ImportProcessors
 {
@@ -68,6 +69,18 @@ namespace Importer.ImportProcessors
             if (!matchedItems.Any() && defaultItemSelector != null)
             {
                 matchedItems = items.Where(defaultItemSelector).ToList();
+            }
+
+            if (matchedItems.Count > 1)
+            {
+                throw new ImportLogException
+                {
+                    Entry = new ImportLogEntry
+                    {
+                        Level = MessageLevel.Error,
+                        Message = $"{this.GetType()}: Multiple matches have been found in \"{itemLocation}\" by Id=\"{targetIdString}\""
+                    }
+                };
             }
 
             return matchedItems.FirstOrDefault();
