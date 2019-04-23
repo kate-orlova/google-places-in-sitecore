@@ -97,6 +97,10 @@ namespace Importer.ImportProcessors
                 return ItemsCache[rootPath];
             }
             var items = this.GenericItemRepository.GetByPath(rootPath, language ?? Language.Current, MapDatabaseFields);
+            if (CacheItems)
+            {
+                ItemsCache?.Add(rootPath, items.ToList());
+            }
             return items;
         }
 
