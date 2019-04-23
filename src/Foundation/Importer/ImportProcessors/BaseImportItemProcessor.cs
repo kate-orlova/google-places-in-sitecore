@@ -24,6 +24,7 @@ namespace Importer.ImportProcessors
         protected abstract Func<TImportObj, string> IdStringFromImportObj { get; }
         protected abstract Func<TItem, string> IdStringFromSitecoreItem { get; }
         protected abstract string DefaultLocation { get; }
+        protected virtual bool MapDatabaseFields => false;
 
         protected virtual string ItemLocation =>
             this.LocationPathOverride
@@ -38,7 +39,8 @@ namespace Importer.ImportProcessors
             this.GenericItemRepository = new GenericSitecoreItemRepository<TItem>(sitecoreContext, searchManager);
         }
 
-        public virtual TItem ProcessItem(TImportObj importObj, IEnumerable<Language> languageVersions, string pathOverride = null)
+        public virtual TItem ProcessItem(TImportObj importObj, IEnumerable<Language> languageVersions,
+            string pathOverride = null)
         {
             var defaultLanguage = LanguageManager.DefaultLanguage;
             var newId = this.CalculateItemId(importObj);
@@ -63,7 +65,8 @@ namespace Importer.ImportProcessors
             if (string.IsNullOrEmpty(targetIdString)) return null;
             var itemLocation = locationOverride ?? this.CalculateItemLocation(importObj);
             var items = this.GetItems(itemLocation, language);
-            var matchedItems = items.Where(x => targetIdString.Equals(this.CalculateItemId(x), StringComparison.OrdinalIgnoreCase))
+            var matchedItems = items.Where(x =>
+                    targetIdString.Equals(this.CalculateItemId(x), StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
             if (!matchedItems.Any() && defaultItemSelector != null)
@@ -78,7 +81,8 @@ namespace Importer.ImportProcessors
                     Entry = new ImportLogEntry
                     {
                         Level = MessageLevel.Error,
-                        Message = $"{this.GetType()}: Multiple matches have been found in \"{itemLocation}\" by Id=\"{targetIdString}\""
+                        Message =
+                            $"{this.GetType()}: Multiple matches have been found in \"{itemLocation}\" by Id=\"{targetIdString}\""
                     }
                 };
             }
@@ -88,13 +92,15 @@ namespace Importer.ImportProcessors
 
         public virtual IEnumerable<TItem> GetItems(string rootPath, Language language = null)
         {
-            throw new NotImplementedException();
+            var items = this.GenericItemRepository.GetByPath(rootPath, language ?? Language.Current, MapDatabaseFields);
+            return items;
         }
 
         protected string CalculateItemId(TItem item)
         {
             return this.IdStringFromSitecoreItem(item);
         }
+
         protected string CalculateItemId(TImportObj importObj)
         {
             return this.IdStringFromImportObj(importObj);
