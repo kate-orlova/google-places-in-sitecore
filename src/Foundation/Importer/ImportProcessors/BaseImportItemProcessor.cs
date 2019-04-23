@@ -92,6 +92,10 @@ namespace Importer.ImportProcessors
 
         public virtual IEnumerable<TItem> GetItems(string rootPath, Language language = null)
         {
+            if (CacheItems && ItemsCache != null && ItemsCache.ContainsKey(rootPath))
+            {
+                return ItemsCache[rootPath];
+            }
             var items = this.GenericItemRepository.GetByPath(rootPath, language ?? Language.Current, MapDatabaseFields);
             return items;
         }
