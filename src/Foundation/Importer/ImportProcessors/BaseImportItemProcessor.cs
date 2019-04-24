@@ -59,6 +59,7 @@ namespace Importer.ImportProcessors
         {
             var newItemName = this.ProposeSitecoreItemName(this.ItemNameFromImportObj(importObj));
             var itemLocation = itemLocationOverride ?? this.CalculateItemLocation(importObj);
+            var newItem = this.GenericItemRepository.Create(newItemName, itemLocation, language);
             return null;
         }
 
