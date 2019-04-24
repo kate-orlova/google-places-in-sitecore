@@ -55,9 +55,10 @@ namespace Importer.ImportProcessors
             return null;
         }
 
-        private object CreateItem(TImportObj importObj, string itemLocationInTargetContext, Language defaultLanguage)
+        protected TItem CreateItem(TImportObj importObj, string itemLocationOverride = null, Language language = null)
         {
             var newItemName = this.ProposeSitecoreItemName(this.ItemNameFromImportObj(importObj));
+            var itemLocation = itemLocationOverride ?? this.CalculateItemLocation(importObj);
             return null;
         }
 
