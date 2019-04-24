@@ -9,7 +9,9 @@ using Sitecore.Globalization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Importer.Enums;
+using Sitecore.Data.Items;
 
 namespace Importer.ImportProcessors
 {
@@ -24,7 +26,10 @@ namespace Importer.ImportProcessors
         protected abstract Func<TImportObj, string> IdStringFromImportObj { get; }
         protected abstract Func<TItem, string> IdStringFromSitecoreItem { get; }
         protected abstract string DefaultLocation { get; }
+        protected abstract Func<TImportObj, string> ItemNameFromImportObj { get; }
         protected virtual bool MapDatabaseFields => false;
+
+        protected static readonly Regex MultipleWhitespacesRegex = new Regex(@"\s+", RegexOptions.Compiled);
 
         protected virtual string ItemLocation =>
             this.LocationPathOverride
@@ -52,7 +57,13 @@ namespace Importer.ImportProcessors
 
         private object CreateItem(TImportObj importObj, string itemLocationInTargetContext, Language defaultLanguage)
         {
-            throw new NotImplementedException();
+            var newItemName = this.ProposeSitecoreItemName(this.ItemNameFromImportObj(importObj));
+            return null;
+        }
+
+        protected virtual string ProposeSitecoreItemName(string name)
+        {
+            return MultipleWhitespacesRegex.Replace(ItemUtil.ProposeValidItemName(name), " ").Trim(' ');
         }
 
         public virtual TItem GetItem(
