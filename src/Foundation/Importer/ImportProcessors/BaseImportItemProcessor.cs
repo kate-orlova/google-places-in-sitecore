@@ -67,6 +67,12 @@ namespace Importer.ImportProcessors
             return newItem;
         }
 
+        protected TItem SaveItem(TItem updatedItem)
+        {
+            this.GenericItemRepository.Save(updatedItem);
+            return updatedItem;
+        }
+
         protected virtual string ProposeSitecoreItemName(string name)
         {
             return MultipleWhitespacesRegex.Replace(ItemUtil.ProposeValidItemName(name), " ").Trim(' ');
