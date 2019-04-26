@@ -64,7 +64,7 @@ namespace Importer.ImportProcessors
             {
                 ItemsCache[itemLocation].Add(newItem);
             }
-            return null;
+            return newItem;
         }
 
         protected virtual string ProposeSitecoreItemName(string name)
