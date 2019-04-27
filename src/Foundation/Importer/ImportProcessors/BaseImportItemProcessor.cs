@@ -52,6 +52,7 @@ namespace Importer.ImportProcessors
             var itemLocationInTargetContext = pathOverride ?? this.CalculateItemLocation(importObj);
             var defaultItem = this.GetItem(newId, importObj, itemLocationInTargetContext, defaultLanguage)
                               ?? this.CreateItem(importObj, itemLocationInTargetContext, defaultLanguage);
+            defaultItem = this.MapDefaultVersionFields(defaultItem, importObj);
             return null;
         }
 
@@ -71,6 +72,11 @@ namespace Importer.ImportProcessors
         {
             this.GenericItemRepository.Save(updatedItem);
             return updatedItem;
+        }
+
+        protected virtual TItem MapDefaultVersionFields(TItem item, TImportObj importObj)
+        {
+            return item;
         }
 
         protected virtual string ProposeSitecoreItemName(string name)
