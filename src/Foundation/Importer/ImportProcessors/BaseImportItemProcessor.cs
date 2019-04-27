@@ -53,6 +53,7 @@ namespace Importer.ImportProcessors
             var defaultItem = this.GetItem(newId, importObj, itemLocationInTargetContext, defaultLanguage)
                               ?? this.CreateItem(importObj, itemLocationInTargetContext, defaultLanguage);
             defaultItem = this.MapDefaultVersionFields(defaultItem, importObj);
+            defaultItem.Language = defaultLanguage.Name;
             return null;
         }
 
