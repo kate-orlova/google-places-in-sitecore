@@ -73,6 +73,7 @@ namespace Importer.ImportProcessors
         protected virtual TItem MapLanguageVersionFields(TItem item, TImportObj importObj, IEnumerable<Language> languages)
         {
             var itemName = this.ItemNameFromImportObj(importObj).Trim();
+            item.DisplayName = this.AmendDisplayName(itemName);
             return item;
         }
 
@@ -166,6 +167,11 @@ namespace Importer.ImportProcessors
         protected virtual string CalculateItemLocation(TImportObj importObj)
         {
             return this.ItemLocation;
+        }
+
+        protected virtual string AmendDisplayName(string name)
+        {
+            return MultipleWhitespacesRegex.Replace(name, " ").Trim(' ');
         }
     }
 }
