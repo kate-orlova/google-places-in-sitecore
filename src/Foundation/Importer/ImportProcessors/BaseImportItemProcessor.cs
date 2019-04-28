@@ -74,6 +74,7 @@ namespace Importer.ImportProcessors
         {
             var itemName = this.ItemNameFromImportObj(importObj).Trim();
             item.DisplayName = this.AmendDisplayName(itemName);
+            item.DisplayNameString = this.AmendDisplayName(itemName);
             return item;
         }
 
