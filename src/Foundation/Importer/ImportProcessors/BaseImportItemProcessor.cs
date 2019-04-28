@@ -58,10 +58,15 @@ namespace Importer.ImportProcessors
 
             var languageList = languageVersions ?? new List<Language>();
             var languageItem = this.MapLanguageVersionFields(defaultItem, importObj, languageList);
-            return null;
+            foreach (var language in languageList)
+            {
+                languageItem.Language = language.Name;
+                this.SaveItem(languageItem);
+            }
+            return defaultItem;
         }
 
-        private object MapLanguageVersionFields(TItem defaultItem, TImportObj importObj, IEnumerable<Language> languageList)
+        protected virtual TItem MapLanguageVersionFields(TItem item, TImportObj importObj, IEnumerable<Language> languages)
         {
             throw new NotImplementedException();
         }
