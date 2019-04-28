@@ -72,7 +72,8 @@ namespace Importer.ImportProcessors
 
         protected virtual TItem MapLanguageVersionFields(TItem item, TImportObj importObj, IEnumerable<Language> languages)
         {
-            throw new NotImplementedException();
+            var itemName = this.ItemNameFromImportObj(importObj).Trim();
+            return item;
         }
 
         protected TItem CreateItem(TImportObj importObj, string itemLocationOverride = null, Language language = null)
