@@ -57,12 +57,16 @@ namespace Importer.ImportProcessors
             this.SaveItem(defaultItem);
 
             var languageList = languageVersions ?? new List<Language>();
-            var languageItem = this.MapLanguageVersionFields(defaultItem, importObj, languageList);
-            foreach (var language in languageList)
+            if (languageList.Any())
             {
-                languageItem.Language = language.Name;
-                this.SaveItem(languageItem);
+                var languageItem = this.MapLanguageVersionFields(defaultItem, importObj, languageList);
+                foreach (var language in languageList)
+                {
+                    languageItem.Language = language.Name;
+                    this.SaveItem(languageItem);
+                }
             }
+
             return defaultItem;
         }
 
