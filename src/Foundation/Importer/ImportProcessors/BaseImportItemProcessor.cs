@@ -55,6 +55,8 @@ namespace Importer.ImportProcessors
             defaultItem = this.MapDefaultVersionFields(defaultItem, importObj);
             defaultItem.Language = defaultLanguage.Name;
             this.SaveItem(defaultItem);
+
+            var languageList = languageVersions ?? new List<Language>();
             return null;
         }
 
