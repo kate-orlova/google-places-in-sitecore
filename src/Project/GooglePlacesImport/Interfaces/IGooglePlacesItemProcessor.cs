@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Importer.ImportProcessors;
+using Importer.Models;
+using Sitecore.Globalization;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace GooglePlacesImport.Interfaces
 {
-    public interface IGooglePlacesItemProcessor
+    public interface IGooglePlacesItemProcessor : IBaseImportItemProcessor<Item, ItemDto>
     {
+        IEnumerable<Item> GetExistItems(Language language = null);
     }
 }
