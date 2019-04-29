@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using GooglePlacesImport.Importers;
+using GooglePlacesImport.Interfaces;
+using GooglePlacesImport.Processors;
+using GooglePlacesImport.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
 
 namespace GooglePlacesImport.DependencyInjection
@@ -7,7 +11,9 @@ namespace GooglePlacesImport.DependencyInjection
     {
         public void Configure(IServiceCollection serviceCollection)
         {
-            throw new System.NotImplementedException();
+            serviceCollection.AddTransient<IGooglePlacesImporter, GooglePlacesImporter>();
+            serviceCollection.AddTransient<IGooglePlacesItemProcessor, GooglePlacesItemProcessor>();
+            serviceCollection.AddTransient<IGooglePlacesService, GooglePlacesService>();
         }
     }
 }
