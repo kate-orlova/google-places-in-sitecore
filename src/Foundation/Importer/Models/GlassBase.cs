@@ -2,7 +2,7 @@
 
 namespace Importer.Models
 {
-    public class GlassBase
+    public class GlassBase : IGlassBase
     {
         
         public virtual Guid Id { get; protected set; }

@@ -2,9 +2,8 @@
 
 namespace Importer.Models
 {
-    public class Item : IGlassBase
+    public class Item : GlassBase, IGlassBase
     {
-        public Guid Id { get; }
         public string PlaceId { get; set; }
         public string BasicFormattedAddress { get; set; }
         public string BasicName { get; set; }
