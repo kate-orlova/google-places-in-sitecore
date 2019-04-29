@@ -15,8 +15,8 @@ using Sitecore.Data.Items;
 
 namespace Importer.ImportProcessors
 {
-    public abstract class BaseImportItemProcessor<TItem, TImportObj> : IBaseImportItemProcessor<TItem, TImportObj>
-        where TItem : GlassBase, IGlassBase
+    public abstract class BaseImportItemProcessor<TItem, TImportObj> : IBaseImportItemProcessor<TItem, TImportObj> where TItem : GlassBase, IGlassBase
+
     {
         protected ISitecoreContext Context { get; }
         protected readonly string LocationPathOverride;
