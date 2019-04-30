@@ -43,6 +43,10 @@ namespace GooglePlacesImport.Processors
 
             item.PlaceId = importObj.GooglePlaceData?.PlaceId;
 
+            item.BasicFormattedAddress = importObj.GooglePlaceData?.BasicFormattedAddress;
+            item.BasicName = importObj.GooglePlaceData?.BasicName;
+            item.BasicUrl = importObj.GooglePlaceData?.BasicUrl;
+            item.BasicDataImported = importObj.GooglePlaceData?.BasicDataImported ?? new DateTime();
 
             return item;
         }
