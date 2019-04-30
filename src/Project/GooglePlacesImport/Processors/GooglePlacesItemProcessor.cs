@@ -52,6 +52,9 @@ namespace GooglePlacesImport.Processors
             item.ContactOpeningHours = importObj.GooglePlaceData?.ContactOpeningHours;
             item.ContactDataImported = importObj.GooglePlaceData?.ContactDataImported ?? new DateTime();
 
+            item.AtmosphereRating = importObj.GooglePlaceData?.AtmosphereRating ?? Decimal.Zero;
+            item.AtmosphereDataImported = importObj.GooglePlaceData?.AtmosphereDataImported ?? new DateTime();
+
             return item;
         }
     }
