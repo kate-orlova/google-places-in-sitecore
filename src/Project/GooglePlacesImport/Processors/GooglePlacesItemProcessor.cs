@@ -29,7 +29,12 @@ namespace GooglePlacesImport.Processors
         public override Item ProcessItem(ItemDto importObj, IEnumerable<Language> languageVersions,
             string pathOverride = null)
         {
-            return null;
+            var defaultLanguage = languageVersions.First();
+
+            var newId = this.CalculateItemId(importObj);
+            var itemLocationInTargetContext = pathOverride ?? this.CalculateItemLocation(importObj);
+            var defaultItem = this.GetItem(newId, importObj, itemLocationInTargetContext, defaultLanguage);
+            return defaultItem;
         }
 
         public IEnumerable<Item> GetExistItems(Language language = null)
