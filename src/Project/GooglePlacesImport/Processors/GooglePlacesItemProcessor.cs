@@ -41,6 +41,8 @@ namespace GooglePlacesImport.Processors
         {
             item = base.MapDefaultVersionFields(item, importObj);
 
+            item.PlaceId = importObj.GooglePlaceData?.PlaceId;
+
 
             return item;
         }
