@@ -48,6 +48,10 @@ namespace GooglePlacesImport.Processors
             item.BasicUrl = importObj.GooglePlaceData?.BasicUrl;
             item.BasicDataImported = importObj.GooglePlaceData?.BasicDataImported ?? new DateTime();
 
+            item.ContactFormattedPhoneNumber = importObj.GooglePlaceData?.ContactFormattedPhoneNumber;
+            item.ContactOpeningHours = importObj.GooglePlaceData?.ContactOpeningHours;
+            item.ContactDataImported = importObj.GooglePlaceData?.ContactDataImported ?? new DateTime();
+
             return item;
         }
     }
