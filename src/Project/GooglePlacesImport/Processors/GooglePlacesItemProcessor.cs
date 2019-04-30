@@ -35,6 +35,11 @@ namespace GooglePlacesImport.Processors
             var itemLocationInTargetContext = pathOverride ?? this.CalculateItemLocation(importObj);
             var defaultItem = this.GetItem(newId, importObj, itemLocationInTargetContext, defaultLanguage);
             defaultItem = this.MapDefaultVersionFields(defaultItem, importObj);
+            foreach (var language in languageVersions)
+            {
+                defaultItem.Language = language.Name;
+                this.SaveItem(defaultItem);
+            }
             return defaultItem;
         }
 
