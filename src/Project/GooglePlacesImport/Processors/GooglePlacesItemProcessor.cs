@@ -34,6 +34,7 @@ namespace GooglePlacesImport.Processors
             var newId = this.CalculateItemId(importObj);
             var itemLocationInTargetContext = pathOverride ?? this.CalculateItemLocation(importObj);
             var defaultItem = this.GetItem(newId, importObj, itemLocationInTargetContext, defaultLanguage);
+            defaultItem = this.MapDefaultVersionFields(defaultItem, importObj);
             return defaultItem;
         }
 
