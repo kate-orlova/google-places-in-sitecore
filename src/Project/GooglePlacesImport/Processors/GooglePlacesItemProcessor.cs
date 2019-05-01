@@ -29,6 +29,18 @@ namespace GooglePlacesImport.Processors
         public override Item ProcessItem(ItemDto importObj, IEnumerable<Language> languageVersions,
             string pathOverride = null)
         {
+            if (importObj == null || languageVersions == null || !languageVersions.Any())
+            {
+                throw new ImportLogException
+                {
+                    Entry = new ImportLogEntry
+                    {
+                        Level = MessageLevel.Error,
+                        Message = "No language versions specified"
+                    }
+                };
+            }
+
             var defaultLanguage = languageVersions.First();
 
             var newId = this.CalculateItemId(importObj);
