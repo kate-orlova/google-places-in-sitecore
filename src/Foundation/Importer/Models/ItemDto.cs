@@ -7,5 +7,6 @@
         public string CompanyName { get; set; }
         public string AddressLine1 { get; set; }
         public string City { get; set; }
+        public string County { get; set; }
     }
 }
