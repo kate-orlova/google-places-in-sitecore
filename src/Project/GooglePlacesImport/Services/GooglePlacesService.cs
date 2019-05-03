@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GooglePlacesImport.Services
 {
@@ -27,6 +28,14 @@ namespace GooglePlacesImport.Services
                 items = new ConcurrentBag<ItemDto>(existingItems.Where(x =>
                     x.GooglePlaceData != null && !string.IsNullOrWhiteSpace(x.GooglePlaceData.PlaceId)));
             }
+
+            Parallel.ForEach(itemsToSearchPlaceId, item =>
+            {
+                if (item.GooglePlaceData == null)
+                {
+                    item.GooglePlaceData = new GooglePlaceDto();
+                }
+            });
 
             return items;
         }
