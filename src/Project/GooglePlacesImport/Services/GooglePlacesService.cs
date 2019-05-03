@@ -12,8 +12,9 @@ namespace GooglePlacesImport.Services
         public IEnumerable<ItemDto> PopulateGooglePlacesIds(IEnumerable<ItemDto> existingItems, bool reSearchPlaceId, ref List<ImportLogEntry> logEntries)
         {
             ConcurrentBag<ItemDto> items;
-
             IEnumerable<ItemDto> itemsToSearchPlaceId;
+            var logs = new ConcurrentBag<ImportLogEntry>();
+
             if (reSearchPlaceId)
             {
                 itemsToSearchPlaceId = existingItems;
