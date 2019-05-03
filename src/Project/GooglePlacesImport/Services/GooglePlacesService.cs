@@ -3,8 +3,11 @@ using Importer.Models;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace GooglePlacesImport.Services
 {
@@ -35,6 +38,8 @@ namespace GooglePlacesImport.Services
                 {
                     item.GooglePlaceData = new GooglePlaceDto();
                 }
+                var searchString = HttpUtility.UrlEncode(
+                    $"{item.CompanyName} {item.AddressLine1} {item.City} {item.County} {item.Postcode}");
             });
 
             return items;
