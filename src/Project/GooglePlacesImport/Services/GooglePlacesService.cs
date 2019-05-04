@@ -46,8 +46,8 @@ namespace GooglePlacesImport.Services
                 var requestUrl = string.Format(baseUrl, key, searchString,
                     item.Latitude.ToString(CultureInfo.InvariantCulture),
                     item.Longitude.ToString(CultureInfo.InvariantCulture));
-
                 var request = WebRequest.Create(requestUrl);
+                var responseStream = request.GetResponse().GetResponseStream();
             });
 
             return items;
