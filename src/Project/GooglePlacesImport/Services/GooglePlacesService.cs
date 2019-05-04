@@ -18,6 +18,9 @@ namespace GooglePlacesImport.Services
             ConcurrentBag<ItemDto> items;
             IEnumerable<ItemDto> itemsToSearchPlaceId;
             var logs = new ConcurrentBag<ImportLogEntry>();
+            var baseUrl = "BASE_URL";
+            var key = "GOOGLE_API_KEY";
+
 
             if (reSearchPlaceId)
             {
@@ -40,6 +43,11 @@ namespace GooglePlacesImport.Services
                 }
                 var searchString = HttpUtility.UrlEncode(
                     $"{item.CompanyName} {item.AddressLine1} {item.City} {item.County} {item.Postcode}");
+                var requestUrl = string.Format(baseUrl, key, searchString,
+                    item.Latitude.ToString(CultureInfo.InvariantCulture),
+                    item.Longitude.ToString(CultureInfo.InvariantCulture));
+
+                var request = WebRequest.Create(requestUrl);
             });
 
             return items;
