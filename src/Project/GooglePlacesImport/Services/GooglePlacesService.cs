@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -48,6 +49,11 @@ namespace GooglePlacesImport.Services
                     item.Longitude.ToString(CultureInfo.InvariantCulture));
                 var request = WebRequest.Create(requestUrl);
                 var responseStream = request.GetResponse().GetResponseStream();
+                string responseText;
+                using (var sr = new StreamReader(responseStream))
+                {
+                    responseText = sr.ReadToEnd();
+                }
             });
 
             return items;
