@@ -57,6 +57,11 @@ namespace GooglePlacesImport.Services
                     responseText = sr.ReadToEnd();
                 }
                 var searchResults = JsonConvert.DeserializeObject<GooglePlacesSearchResponse>(responseText);
+                if (searchResults.Candidates != null && searchResults.Candidates.Count(x => !x.PermanentlyClosed) == 1)
+                {
+                    item.GooglePlaceData.PlaceId = searchResults.Candidates.First(x => !x.PermanentlyClosed).PlaceId;
+                    items.Add(item);
+                }
             });
 
             return items;
