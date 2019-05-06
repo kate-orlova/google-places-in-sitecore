@@ -8,6 +8,9 @@ namespace GooglePlacesImport.Models
         [JsonProperty("candidates", NullValueHandling = NullValueHandling.Ignore)]
         public List<Candidate> Candidates { get; set; }
 
+        [JsonProperty("debug_log", NullValueHandling = NullValueHandling.Ignore)]
+        public DebugLog DebugLog { get; set; }
+
         [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public string Status { get; set; }
     }
