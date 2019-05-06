@@ -11,12 +11,15 @@ using System.Threading.Tasks;
 using System.Web;
 using GooglePlacesImport.Models;
 using Importer.Enums;
+using log4net;
 using Newtonsoft.Json;
 
 namespace GooglePlacesImport.Services
 {
     public class GooglePlacesService : IGooglePlacesService
     {
+        protected readonly ILog Logger;
+
         public IEnumerable<ItemDto> PopulateGooglePlacesIds(IEnumerable<ItemDto> existingItems, bool reSearchPlaceId, ref List<ImportLogEntry> logEntries)
         {
             ConcurrentBag<ItemDto> items;
@@ -74,6 +77,8 @@ namespace GooglePlacesImport.Services
                             Action = ImportAction.Rejected,
                             Level = MessageLevel.Info
                         };
+                        this.Logger.Info(logEntry.Message);
+                        logs.Add(logEntry);
                     }
                 }
             });
