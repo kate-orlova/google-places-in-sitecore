@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using GooglePlacesImport.Models;
+using Importer.Enums;
 using Newtonsoft.Json;
 
 namespace GooglePlacesImport.Services
@@ -61,6 +62,19 @@ namespace GooglePlacesImport.Services
                 {
                     item.GooglePlaceData.PlaceId = searchResults.Candidates.First(x => !x.PermanentlyClosed).PlaceId;
                     items.Add(item);
+                }
+                else
+                {
+                    if (searchResults.Candidates != null &&
+                        searchResults.Candidates.Count(x => !x.PermanentlyClosed) > 1)
+                    {
+                        var logEntry = new ImportLogEntry
+                        {
+                            Message = $"{item.CompanyName} - Multiple Google Place IDs found: {string.Join(", ", searchResults.Candidates.Select(x => x.PlaceId))}\nRequest: {requestUrl}",
+                            Action = ImportAction.Rejected,
+                            Level = MessageLevel.Info
+                        };
+                    }
                 }
             });
 
