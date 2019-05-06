@@ -9,6 +9,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
+using GooglePlacesImport.Models;
+using Newtonsoft.Json;
 
 namespace GooglePlacesImport.Services
 {
@@ -54,6 +56,7 @@ namespace GooglePlacesImport.Services
                 {
                     responseText = sr.ReadToEnd();
                 }
+                var searchResults = JsonConvert.DeserializeObject<GooglePlacesSearchResponse>(responseText);
             });
 
             return items;
