@@ -92,6 +92,17 @@ namespace GooglePlacesImport.Services
                         this.Logger.Info(logEntry.Message);
                         logs.Add(logEntry);
                     }
+                    else
+                    {
+                        var logEntry = new ImportLogEntry
+                        {
+                            Message = $"{item.CompanyName} - No Google Place IDs found\nRequest: {requestUrl}",
+                            Action = ImportAction.Rejected,
+                            Level = MessageLevel.Info
+                        };
+                        this.Logger.Info(logEntry.Message);
+                        logs.Add(logEntry);
+                    }
                 }
             });
 
