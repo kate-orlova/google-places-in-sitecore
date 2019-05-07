@@ -54,55 +54,74 @@ namespace GooglePlacesImport.Services
                     item.Latitude.ToString(CultureInfo.InvariantCulture),
                     item.Longitude.ToString(CultureInfo.InvariantCulture));
                 var request = WebRequest.Create(requestUrl);
-                var responseStream = request.GetResponse().GetResponseStream();
-                string responseText;
-                using (var sr = new StreamReader(responseStream))
+                try
                 {
-                    responseText = sr.ReadToEnd();
-                }
-                var searchResults = JsonConvert.DeserializeObject<GooglePlacesSearchResponse>(responseText);
-                if (searchResults.Candidates != null && searchResults.Candidates.Count(x => !x.PermanentlyClosed) == 1)
-                {
-                    item.GooglePlaceData.PlaceId = searchResults.Candidates.First(x => !x.PermanentlyClosed).PlaceId;
-                    items.Add(item);
-                }
-                else
-                {
-                    if (searchResults.Candidates != null &&
-                        searchResults.Candidates.Count(x => !x.PermanentlyClosed) > 1)
+                    var responseStream = request.GetResponse().GetResponseStream();
+                    string responseText;
+                    using (var sr = new StreamReader(responseStream))
                     {
-                        var logEntry = new ImportLogEntry
-                        {
-                            Message = $"{item.CompanyName} - Multiple Google Place IDs found: {string.Join(", ", searchResults.Candidates.Select(x => x.PlaceId))}\nRequest: {requestUrl}",
-                            Action = ImportAction.Rejected,
-                            Level = MessageLevel.Info
-                        };
-                        this.Logger.Info(logEntry.Message);
-                        logs.Add(logEntry);
+                        responseText = sr.ReadToEnd();
                     }
-                    else if (searchResults.Candidates != null &&
-                             searchResults.Candidates.Any(x => x.PermanentlyClosed))
+
+                    var searchResults = JsonConvert.DeserializeObject<GooglePlacesSearchResponse>(responseText);
+                    if (searchResults.Candidates != null &&
+                        searchResults.Candidates.Count(x => !x.PermanentlyClosed) == 1)
                     {
-                        var logEntry = new ImportLogEntry
-                        {
-                            Message = $"{item.CompanyName} - Google Place is permanently closed\nRequest: {requestUrl}",
-                            Action = ImportAction.Rejected,
-                            Level = MessageLevel.Info
-                        };
-                        this.Logger.Info(logEntry.Message);
-                        logs.Add(logEntry);
+                        item.GooglePlaceData.PlaceId =
+                            searchResults.Candidates.First(x => !x.PermanentlyClosed).PlaceId;
+                        items.Add(item);
                     }
                     else
                     {
-                        var logEntry = new ImportLogEntry
+                        if (searchResults.Candidates != null &&
+                            searchResults.Candidates.Count(x => !x.PermanentlyClosed) > 1)
                         {
-                            Message = $"{item.CompanyName} - No Google Place IDs found\nRequest: {requestUrl}",
-                            Action = ImportAction.Rejected,
-                            Level = MessageLevel.Info
-                        };
-                        this.Logger.Info(logEntry.Message);
-                        logs.Add(logEntry);
+                            var logEntry = new ImportLogEntry
+                            {
+                                Message =
+                                    $"{item.CompanyName} - Multiple Google Place IDs found: {string.Join(", ", searchResults.Candidates.Select(x => x.PlaceId))}\nRequest: {requestUrl}",
+                                Action = ImportAction.Rejected,
+                                Level = MessageLevel.Info
+                            };
+                            this.Logger.Info(logEntry.Message);
+                            logs.Add(logEntry);
+                        }
+                        else if (searchResults.Candidates != null &&
+                                 searchResults.Candidates.Any(x => x.PermanentlyClosed))
+                        {
+                            var logEntry = new ImportLogEntry
+                            {
+                                Message =
+                                    $"{item.CompanyName} - Google Place is permanently closed\nRequest: {requestUrl}",
+                                Action = ImportAction.Rejected,
+                                Level = MessageLevel.Info
+                            };
+                            this.Logger.Info(logEntry.Message);
+                            logs.Add(logEntry);
+                        }
+                        else
+                        {
+                            var logEntry = new ImportLogEntry
+                            {
+                                Message = $"{item.CompanyName} - No Google Place IDs found\nRequest: {requestUrl}",
+                                Action = ImportAction.Rejected,
+                                Level = MessageLevel.Info
+                            };
+                            this.Logger.Info(logEntry.Message);
+                            logs.Add(logEntry);
+                        }
                     }
+                }
+                catch (Exception exception)
+                {
+                    var logEntry = new ImportLogEntry
+                    {
+                        Message = $"{item.CompanyName} - error while searching by Google Place ID\nRequest: {requestUrl}",
+                        Action = ImportAction.Rejected,
+                        Level = MessageLevel.Info
+                    };
+                    this.Logger.Error(logEntry.Message, exception);
+                    logs.Add(logEntry);
                 }
             });
 
