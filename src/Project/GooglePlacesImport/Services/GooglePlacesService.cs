@@ -80,6 +80,18 @@ namespace GooglePlacesImport.Services
                         this.Logger.Info(logEntry.Message);
                         logs.Add(logEntry);
                     }
+                    else if (searchResults.Candidates != null &&
+                             searchResults.Candidates.Any(x => x.PermanentlyClosed))
+                    {
+                        var logEntry = new ImportLogEntry
+                        {
+                            Message = $"{item.CompanyName} - Google Place is permanently closed\nRequest: {requestUrl}",
+                            Action = ImportAction.Rejected,
+                            Level = MessageLevel.Info
+                        };
+                        this.Logger.Info(logEntry.Message);
+                        logs.Add(logEntry);
+                    }
                 }
             });
 
