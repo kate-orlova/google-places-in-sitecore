@@ -148,7 +148,11 @@ namespace GooglePlacesImport.Services
 
         public IEnumerable<ItemDto> PopulateGooglePlacesData(IEnumerable<ItemDto> existingItems, ref List<ImportLogEntry> logEntries)
         {
-            throw new NotImplementedException();
+            var baseUrl = "BASE_URL";
+            var key = "GOOGLE_API_KEY";
+            var items = new ConcurrentBag<ItemDto>();
+
+            return items;
         }
     }
 }
