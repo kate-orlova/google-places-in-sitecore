@@ -141,6 +141,8 @@ namespace GooglePlacesImport.Services
                 logs.Add(logEntry);
             }
 
+            logEntries.AddRange(logs);
+
             return items;
         }
 
