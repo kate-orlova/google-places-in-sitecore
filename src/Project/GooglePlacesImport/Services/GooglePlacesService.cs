@@ -153,14 +153,17 @@ namespace GooglePlacesImport.Services
             var items = new ConcurrentBag<ItemDto>();
             var basicFields = "name,url,formatted_address";
             var contactFields = "formatted_phone_number,opening_hours";
+            var atmosphereFields = "rating";
             Int32 basicDataCacheMinutes = 10080;
             Int32 contactDataCacheMinutes = 10080;
+            Int32 atmosphereDataCacheMinutes = 10080;
 
             Parallel.ForEach(existingItems, item =>
             {
                 var fields = new List<string>();
                 if (item.GooglePlaceData.BasicDataImported.AddMinutes(basicDataCacheMinutes) < DateTime.Now) fields.Add(basicFields);
                 if (item.GooglePlaceData.ContactDataImported.AddMinutes(contactDataCacheMinutes) < DateTime.Now) fields.Add(contactFields);
+                if (item.GooglePlaceData.AtmosphereDataImported.AddMinutes(atmosphereDataCacheMinutes) < DateTime.Now) fields.Add(atmosphereFields);
             });
 
             return items;
