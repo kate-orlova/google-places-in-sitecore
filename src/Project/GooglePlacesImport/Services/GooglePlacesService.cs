@@ -179,6 +179,11 @@ namespace GooglePlacesImport.Services
                 if (item.GooglePlaceData.BasicDataImported.AddMinutes(basicDataCacheMinutes) < DateTime.Now) fields.Add(basicFields);
                 if (item.GooglePlaceData.ContactDataImported.AddMinutes(contactDataCacheMinutes) < DateTime.Now) fields.Add(contactFields);
                 if (item.GooglePlaceData.AtmosphereDataImported.AddMinutes(atmosphereDataCacheMinutes) < DateTime.Now) fields.Add(atmosphereFields);
+
+                if (fields.Any())
+                {
+                    var allFields = string.Join(",", fields);
+                }
             });
 
             return items;
