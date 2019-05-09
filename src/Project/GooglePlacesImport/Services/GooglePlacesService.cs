@@ -158,6 +158,20 @@ namespace GooglePlacesImport.Services
             Int32 contactDataCacheMinutes = 10080;
             Int32 atmosphereDataCacheMinutes = 10080;
 
+            if (basicDataCacheMinutes <= 0 || contactDataCacheMinutes <= 0 || atmosphereDataCacheMinutes <= 0 ||
+                string.IsNullOrWhiteSpace(basicFields) || string.IsNullOrWhiteSpace(contactFields) ||
+                string.IsNullOrWhiteSpace(atmosphereFields))
+            {
+                var logEntry = new ImportLogEntry
+                {
+                    Message = $"Google Places Data import settings are incomplete or empty",
+                    Action = ImportAction.Undefined,
+                    Level = MessageLevel.Error
+                };
+                
+                return new List<ItemDto>();
+            }
+
             Parallel.ForEach(existingItems, item =>
             {
                 var fields = new List<string>();
