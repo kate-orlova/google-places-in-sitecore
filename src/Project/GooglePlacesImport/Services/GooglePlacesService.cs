@@ -151,6 +151,14 @@ namespace GooglePlacesImport.Services
             var baseUrl = "BASE_URL";
             var key = "GOOGLE_API_KEY";
             var items = new ConcurrentBag<ItemDto>();
+            var basicFields = "name,url,formatted_address";
+            Int32 basicDataCacheMinutes = 10080;
+
+            Parallel.ForEach(existingItems, item =>
+            {
+                var fields = new List<string>();
+                if (item.GooglePlaceData.BasicDataImported.AddMinutes(basicDataCacheMinutes) < DateTime.Now) fields.Add(basicFields);
+            });
 
             return items;
         }
