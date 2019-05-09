@@ -185,6 +185,9 @@ namespace GooglePlacesImport.Services
                     var allFields = string.Join(",", fields);
                     var requestUrl = string.Format(baseUrl, key, item.GooglePlaceData.PlaceId, allFields);
                     var request = WebRequest.Create(requestUrl);
+
+                    var responseStream = request.GetResponse().GetResponseStream();
+                    string responseText;
                 }
             });
 
