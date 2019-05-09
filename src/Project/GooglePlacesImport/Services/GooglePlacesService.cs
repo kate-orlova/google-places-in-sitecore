@@ -168,7 +168,8 @@ namespace GooglePlacesImport.Services
                     Action = ImportAction.Undefined,
                     Level = MessageLevel.Error
                 };
-                
+                this.Logger.Error(logEntry.Message);
+                logEntries.Add(logEntry);
                 return new List<ItemDto>();
             }
 
