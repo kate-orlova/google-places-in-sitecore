@@ -183,6 +183,7 @@ namespace GooglePlacesImport.Services
                 if (fields.Any())
                 {
                     var allFields = string.Join(",", fields);
+                    var requestUrl = string.Format(baseUrl, key, item.GooglePlaceData.PlaceId, allFields);
                 }
             });
 
