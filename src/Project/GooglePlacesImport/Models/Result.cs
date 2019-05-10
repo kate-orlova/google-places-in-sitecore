@@ -12,5 +12,8 @@ namespace GooglePlacesImport.Models
 
         [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
         public string Url { get; set; }
+
+        [JsonProperty("formatted_phone_number", NullValueHandling = NullValueHandling.Ignore)]
+        public string FormattedPhoneNumber { get; set; }
     }
 }
