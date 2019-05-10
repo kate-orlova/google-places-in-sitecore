@@ -188,6 +188,11 @@ namespace GooglePlacesImport.Services
 
                     var responseStream = request.GetResponse().GetResponseStream();
                     string responseText;
+
+                    using (var sr = new StreamReader(responseStream))
+                    {
+                        responseText = sr.ReadToEnd();
+                    }
                 }
             });
 
