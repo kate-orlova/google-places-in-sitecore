@@ -10,5 +10,8 @@ namespace GooglePlacesImport.Models
 
         [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public string Status { get; set; }
+
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public Result Result { get; set; }
     }
 }
