@@ -7,5 +7,8 @@ namespace GooglePlacesImport.Models
     {
         [JsonProperty("html_attributions", NullValueHandling = NullValueHandling.Ignore)]
         public List<object> HtmlAttributions { get; set; }
+
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
+        public string Status { get; set; }
     }
 }
