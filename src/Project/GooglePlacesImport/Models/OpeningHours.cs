@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace GooglePlacesImport.Models
 {
@@ -6,5 +7,8 @@ namespace GooglePlacesImport.Models
     {
         [JsonProperty("open_now", NullValueHandling = NullValueHandling.Ignore)]
         public bool? OpenNow { get; set; }
+
+        [JsonProperty("periods", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Period> Periods { get; set; }
     }
 }
