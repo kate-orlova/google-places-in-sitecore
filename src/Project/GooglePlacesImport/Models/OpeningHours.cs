@@ -1,6 +1,10 @@
-﻿namespace GooglePlacesImport.Models
+﻿using Newtonsoft.Json;
+
+namespace GooglePlacesImport.Models
 {
     public partial class OpeningHours
     {
+        [JsonProperty("open_now", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? OpenNow { get; set; }
     }
 }
