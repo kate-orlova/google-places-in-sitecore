@@ -10,5 +10,8 @@ namespace GooglePlacesImport.Models
 
         [JsonProperty("periods", NullValueHandling = NullValueHandling.Ignore)]
         public List<Period> Periods { get; set; }
+
+        [JsonProperty("weekday_text", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> WeekdayText { get; set; }
     }
 }
