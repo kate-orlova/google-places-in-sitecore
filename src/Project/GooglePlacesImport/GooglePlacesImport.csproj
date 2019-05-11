@@ -115,6 +115,7 @@
     <Compile Include="Interfaces\IGooglePlacesItemProcessor.cs" />
     <Compile Include="Interfaces\IGooglePlacesService.cs" />
     <Compile Include="Models\Candidate.cs" />
+    <Compile Include="Models\Close.cs" />
     <Compile Include="Models\DebugLog.cs" />
     <Compile Include="Models\GooglePlacesGetByIdResponse.cs" />
     <Compile Include="Models\GooglePlacesSearchResponse.cs" />
