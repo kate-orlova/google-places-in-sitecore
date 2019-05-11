@@ -6,5 +6,8 @@ namespace GooglePlacesImport.Models
     {
         [JsonProperty("day", NullValueHandling = NullValueHandling.Ignore)]
         public long? Day { get; set; }
+
+        [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
+        public string Time { get; set; }
     }
 }
