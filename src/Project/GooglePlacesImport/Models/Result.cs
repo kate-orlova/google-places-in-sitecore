@@ -18,5 +18,8 @@ namespace GooglePlacesImport.Models
 
         [JsonProperty("opening_hours", NullValueHandling = NullValueHandling.Ignore)]
         public OpeningHours OpeningHours { get; set; }
+
+        [JsonProperty("rating", NullValueHandling = NullValueHandling.Ignore)]
+        public decimal Rating { get; set; }
     }
 }
