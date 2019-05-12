@@ -15,5 +15,8 @@ namespace GooglePlacesImport.Models
 
         [JsonProperty("formatted_phone_number", NullValueHandling = NullValueHandling.Ignore)]
         public string FormattedPhoneNumber { get; set; }
+
+        [JsonProperty("opening_hours", NullValueHandling = NullValueHandling.Ignore)]
+        public OpeningHours OpeningHours { get; set; }
     }
 }
