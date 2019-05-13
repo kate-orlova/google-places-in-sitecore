@@ -186,39 +186,54 @@ namespace GooglePlacesImport.Services
                     var requestUrl = string.Format(baseUrl, key, item.GooglePlaceData.PlaceId, allFields);
                     var request = WebRequest.Create(requestUrl);
 
-                    var responseStream = request.GetResponse().GetResponseStream();
-                    string responseText;
-
-                    using (var sr = new StreamReader(responseStream))
+                    try
                     {
-                        responseText = sr.ReadToEnd();
-                    }
+                        var responseStream = request.GetResponse().GetResponseStream();
+                        string responseText;
 
-                    var placeData = JsonConvert.DeserializeObject<GooglePlacesGetByIdResponse>(responseText);
-                    if (fields.Contains(basicFields, StringComparer.OrdinalIgnoreCase))
+                        using (var sr = new StreamReader(responseStream))
+                        {
+                            responseText = sr.ReadToEnd();
+                        }
+
+                        var placeData = JsonConvert.DeserializeObject<GooglePlacesGetByIdResponse>(responseText);
+                        if (fields.Contains(basicFields, StringComparer.OrdinalIgnoreCase))
+                        {
+                            item.GooglePlaceData.BasicFormattedAddress = placeData?.Result?.FormattedAddress;
+                            item.GooglePlaceData.BasicName = placeData?.Result?.Name;
+                            item.GooglePlaceData.BasicUrl = placeData?.Result?.Url;
+                            item.GooglePlaceData.BasicDataImported = DateTime.Now;
+                        }
+
+                        if (fields.Contains(contactFields, StringComparer.OrdinalIgnoreCase))
+                        {
+                            item.GooglePlaceData.ContactFormattedPhoneNumber = placeData?.Result?.FormattedPhoneNumber;
+                            item.GooglePlaceData.ContactOpeningHours =
+                                placeData?.Result?.OpeningHours?.WeekdayText != null
+                                    ? string.Join("\r\n", placeData.Result.OpeningHours.WeekdayText)
+                                    : null;
+                            item.GooglePlaceData.ContactDataImported = DateTime.Now;
+                        }
+
+                        if (fields.Contains(atmosphereFields, StringComparer.OrdinalIgnoreCase))
+                        {
+                            item.GooglePlaceData.AtmosphereRating = placeData?.Result?.Rating ?? Decimal.Zero;
+                            item.GooglePlaceData.AtmosphereDataImported = DateTime.Now;
+                        }
+
+                        items.Add(item);
+                    }
+                    catch (Exception exception)
                     {
-                        item.GooglePlaceData.BasicFormattedAddress = placeData?.Result?.FormattedAddress;
-                        item.GooglePlaceData.BasicName = placeData?.Result?.Name;
-                        item.GooglePlaceData.BasicUrl = placeData?.Result?.Url;
-                        item.GooglePlaceData.BasicDataImported = DateTime.Now;
+                        var logEntry = new ImportLogEntry
+                        {
+                            Message =
+                                $"{item.CompanyName} - error while getting Google Place Data\nRequest: {requestUrl}",
+                            Action = ImportAction.Rejected,
+                            Level = MessageLevel.Info
+                        };
+                        this.Logger.Error(logEntry.Message, exception);
                     }
-
-                    if (fields.Contains(contactFields, StringComparer.OrdinalIgnoreCase))
-                    {
-                        item.GooglePlaceData.ContactFormattedPhoneNumber = placeData?.Result?.FormattedPhoneNumber;
-                        item.GooglePlaceData.ContactOpeningHours = placeData?.Result?.OpeningHours?.WeekdayText != null
-                            ? string.Join("\r\n", placeData.Result.OpeningHours.WeekdayText)
-                            : null;
-                        item.GooglePlaceData.ContactDataImported = DateTime.Now;
-                    }
-
-                    if (fields.Contains(atmosphereFields, StringComparer.OrdinalIgnoreCase))
-                    {
-                        item.GooglePlaceData.AtmosphereRating = placeData?.Result?.Rating ?? Decimal.Zero;
-                        item.GooglePlaceData.AtmosphereDataImported = DateTime.Now;
-                    }
-
-                    items.Add(item);
                 }
             });
 
