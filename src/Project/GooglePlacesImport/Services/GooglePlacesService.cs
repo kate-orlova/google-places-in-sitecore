@@ -202,6 +202,12 @@ namespace GooglePlacesImport.Services
                         item.GooglePlaceData.BasicUrl = placeData?.Result?.Url;
                         item.GooglePlaceData.BasicDataImported = DateTime.Now;
                     }
+
+                    if (fields.Contains(contactFields, StringComparer.OrdinalIgnoreCase))
+                    {
+                        item.GooglePlaceData.ContactFormattedPhoneNumber = placeData?.Result?.FormattedPhoneNumber;
+                        item.GooglePlaceData.ContactDataImported = DateTime.Now;
+                    }
                 }
             });
 
