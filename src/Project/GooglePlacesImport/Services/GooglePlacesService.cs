@@ -211,6 +211,12 @@ namespace GooglePlacesImport.Services
                             : null;
                         item.GooglePlaceData.ContactDataImported = DateTime.Now;
                     }
+
+                    if (fields.Contains(atmosphereFields, StringComparer.OrdinalIgnoreCase))
+                    {
+                        item.GooglePlaceData.AtmosphereRating = placeData?.Result?.Rating ?? Decimal.Zero;
+                        item.GooglePlaceData.AtmosphereDataImported = DateTime.Now;
+                    }
                 }
             });
 
