@@ -206,6 +206,9 @@ namespace GooglePlacesImport.Services
                     if (fields.Contains(contactFields, StringComparer.OrdinalIgnoreCase))
                     {
                         item.GooglePlaceData.ContactFormattedPhoneNumber = placeData?.Result?.FormattedPhoneNumber;
+                        item.GooglePlaceData.ContactOpeningHours = placeData?.Result?.OpeningHours?.WeekdayText != null
+                            ? string.Join("\r\n", placeData.Result.OpeningHours.WeekdayText)
+                            : null;
                         item.GooglePlaceData.ContactDataImported = DateTime.Now;
                     }
                 }
