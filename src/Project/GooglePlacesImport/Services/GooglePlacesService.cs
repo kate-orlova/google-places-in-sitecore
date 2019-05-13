@@ -217,6 +217,8 @@ namespace GooglePlacesImport.Services
                         item.GooglePlaceData.AtmosphereRating = placeData?.Result?.Rating ?? Decimal.Zero;
                         item.GooglePlaceData.AtmosphereDataImported = DateTime.Now;
                     }
+
+                    items.Add(item);
                 }
             });
 
