@@ -193,6 +193,15 @@ namespace GooglePlacesImport.Services
                     {
                         responseText = sr.ReadToEnd();
                     }
+
+                    var placeData = JsonConvert.DeserializeObject<GooglePlacesGetByIdResponse>(responseText);
+                    if (fields.Contains(basicFields, StringComparer.OrdinalIgnoreCase))
+                    {
+                        item.GooglePlaceData.BasicFormattedAddress = placeData?.Result?.FormattedAddress;
+                        item.GooglePlaceData.BasicName = placeData?.Result?.Name;
+                        item.GooglePlaceData.BasicUrl = placeData?.Result?.Url;
+                        item.GooglePlaceData.BasicDataImported = DateTime.Now;
+                    }
                 }
             });
 
