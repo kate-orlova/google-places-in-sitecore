@@ -151,6 +151,7 @@ namespace GooglePlacesImport.Services
             var baseUrl = "BASE_URL";
             var key = "GOOGLE_API_KEY";
             var items = new ConcurrentBag<ItemDto>();
+            var logs = new ConcurrentBag<ImportLogEntry>();
             var basicFields = "name,url,formatted_address";
             var contactFields = "formatted_phone_number,opening_hours";
             var atmosphereFields = "rating";
@@ -233,6 +234,7 @@ namespace GooglePlacesImport.Services
                             Level = MessageLevel.Info
                         };
                         this.Logger.Error(logEntry.Message, exception);
+                        logs.Add(logEntry);
                     }
                 }
             });
