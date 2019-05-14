@@ -124,6 +124,7 @@ namespace GooglePlacesImport.SitecronTasks
 
         private void PublishItems(List<Guid> itemsToPublish)
         {
+            this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} - publishing start");
             try
             {
                 using (new DatabaseSwitcher(Database.GetDatabase(Importer.Constants.Sitecore.Databases.Master)))
