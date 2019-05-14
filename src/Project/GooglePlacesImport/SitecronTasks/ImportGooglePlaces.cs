@@ -124,7 +124,7 @@ namespace GooglePlacesImport.SitecronTasks
 
         private void PublishItems(List<Guid> itemsToPublish)
         {
-            this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} - publishing start");
+            this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} - publishing Start");
             try
             {
                 using (new DatabaseSwitcher(Database.GetDatabase(Importer.Constants.Sitecore.Databases.Master)))
@@ -159,6 +159,7 @@ namespace GooglePlacesImport.SitecronTasks
             {
                 this._logger.Error($"Sitecron - Job {nameof(ImportGooglePlaces)} - publishing error", exception);
             }
+            this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} - publishing End");
         }
 
         private void RebuildIndexes()
