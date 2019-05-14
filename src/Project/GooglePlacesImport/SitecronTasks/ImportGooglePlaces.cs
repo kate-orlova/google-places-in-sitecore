@@ -4,6 +4,7 @@ using System.Linq;
 using GooglePlacesImport.Interfaces;
 using Importer.Enums;
 using Importer.Extensions;
+using Importer.Importers;
 using Importer.Loggers;
 using Quartz;
 using log4net;
@@ -123,7 +124,29 @@ namespace GooglePlacesImport.SitecronTasks
 
         private void PublishItems(List<Guid> itemsToPublish)
         {
-            throw new NotImplementedException();
+            using (new DatabaseSwitcher(Database.GetDatabase(Importer.Constants.Sitecore.Databases.Master)))
+            using (var innerScope = ServiceLocator.ServiceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var importer = innerScope.ServiceProvider.GetService<IImporter>();
+
+                if (importer == null)
+                {
+                    this._logger.Warn($"Sitecron - Job {nameof(ImportGooglePlaces)} - nullable importer - items haven't been published");
+                    return;
+                }
+
+                if (itemsToPublish == null || !itemsToPublish.Any())
+                {
+                    this._logger.Warn($"Sitecron - Job {nameof(ImportGooglePlaces)} - empty roots - items haven't been published");
+                    return;
+                }
+
+                foreach (var root in itemsToPublish.Where(x => x != Guid.Empty))
+                {
+                    var rootLogs = importer.Publish(root);
+                    this._importJobLogger.LogImportResults(rootLogs);
+                }
+            }
         }
 
         private void RebuildIndexes()
