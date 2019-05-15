@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Glass.Mapper, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\Glass.Mapper.Sc.Core.4.5.0.4\lib\net45\Glass.Mapper.dll</HintPath>
@@ -112,7 +115,6 @@
     <Compile Include="DependencyInjection\RegisterServices.cs" />
     <Compile Include="Importers\GooglePlacesImporter.cs" />
     <Compile Include="Interfaces\IGooglePlacesImporter.cs" />
-    <Compile Include="Interfaces\IGooglePlacesItemProcessor.cs" />
     <Compile Include="Interfaces\IGooglePlacesService.cs" />
     <Compile Include="Models\Candidate.cs" />
     <Compile Include="Models\Close.cs" />

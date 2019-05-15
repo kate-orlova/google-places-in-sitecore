@@ -1,9 +1,8 @@
 ﻿using Importer.ImportProcessors;
-using Importer.Models;
 using Sitecore.Globalization;
 using System.Collections.Generic;
 
-namespace GooglePlacesImport.Interfaces
+namespace Importer.Models
 {
     public interface IGooglePlacesItemProcessor : IBaseImportItemProcessor<Item, ItemDto>
     {

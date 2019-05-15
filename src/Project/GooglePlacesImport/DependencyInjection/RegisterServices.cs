@@ -2,6 +2,7 @@
 using GooglePlacesImport.Interfaces;
 using GooglePlacesImport.Processors;
 using GooglePlacesImport.Services;
+using Importer.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
 
