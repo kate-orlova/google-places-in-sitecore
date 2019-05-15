@@ -3,13 +3,23 @@ using GooglePlacesImport.Interfaces;
 using Importer.Importers;
 using Importer.Models;
 using System;
+using AutoMapper;
 
 namespace GooglePlacesImport.Importers
 {
     public class GooglePlacesImporter : BaseImporter, IGooglePlacesImporter
     {
-        public GooglePlacesImporter(ISitecoreContext sitecoreContext) : base(sitecoreContext)
+        private readonly ISitecoreContext _sitecoreContext;
+        private readonly IGooglePlacesItemProcessor _googlePlacesItemProcessor;
+        private readonly IMapper _mapper;
+        private readonly IGooglePlacesService _googlePlacesService;
+
+        public GooglePlacesImporter(ISitecoreContext sitecoreContext, IGooglePlacesItemProcessor googlePlacesItemProcessor, IMapper mapper, IGooglePlacesService googlePlacesService) : base(sitecoreContext)
         {
+            this._sitecoreContext = sitecoreContext;
+           this._googlePlacesItemProcessor = googlePlacesItemProcessor;
+            this._mapper = mapper;
+            this._googlePlacesService = googlePlacesService;
         }
 
         public ImportLog Run()
