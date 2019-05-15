@@ -15,6 +15,7 @@ namespace Importer.Importers
     public class BaseImporter : IImporter
     {
         protected readonly ISitecoreContext SitecoreContext;
+        private readonly IGooglePlacesItemProcessor _googlePlacesItemProcessor;
 
         public BaseImporter(ISitecoreContext sitecoreContext)
         {
