@@ -4,6 +4,7 @@ using Importer.Importers;
 using Importer.Models;
 using System;
 using AutoMapper;
+using Importer.Enums;
 using log4net;
 
 namespace GooglePlacesImport.Importers
@@ -27,6 +28,22 @@ namespace GooglePlacesImport.Importers
         public ImportLog Run()
         {
             throw new NotImplementedException();
+        }
+        private void WriteToLog(ImportLogEntry importLogEntry)
+        {
+            switch (importLogEntry.Level)
+            {
+                case MessageLevel.Error:
+                    Logger.Error(importLogEntry.Message);
+                    break;
+                case MessageLevel.Critical:
+                    Logger.Fatal(importLogEntry.Message);
+                    break;
+                case MessageLevel.Info:
+                default:
+                    Logger.Info(importLogEntry.Message);
+                    break;
+            }
         }
     }
 }
