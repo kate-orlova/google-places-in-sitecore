@@ -27,7 +27,8 @@ namespace GooglePlacesImport.Importers
 
         public ImportLog Run()
         {
-            throw new NotImplementedException();
+            var log = new ImportLog();
+            return log;
         }
         private void WriteToLog(ImportLogEntry importLogEntry)
         {
