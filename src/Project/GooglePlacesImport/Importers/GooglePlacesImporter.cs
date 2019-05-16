@@ -4,11 +4,13 @@ using Importer.Importers;
 using Importer.Models;
 using System;
 using AutoMapper;
+using log4net;
 
 namespace GooglePlacesImport.Importers
 {
     public class GooglePlacesImporter : BaseImporter, IGooglePlacesImporter
     {
+        protected readonly ILog Logger;
         private readonly ISitecoreContext _sitecoreContext;
         private readonly IGooglePlacesItemProcessor _googlePlacesItemProcessor;
         private readonly IMapper _mapper;
