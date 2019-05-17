@@ -35,6 +35,12 @@ namespace GooglePlacesImport.Importers
             var itemsWithPlaceId = _googlePlacesService.PopulateGooglePlacesIds(existingItemsDtos, true, ref placesSearchLog);
             var itemsWithPlaceData = _googlePlacesService.PopulateGooglePlacesData(itemsWithPlaceId, ref placesSearchLog);
             log.Entries.AddRange(placesSearchLog);
+
+            foreach (var itemDto in itemsWithPlaceData)
+            {
+                var item = _googlePlacesItemProcessor.ProcessItem(itemDto);
+            }
+
             return log;
         }
         private void WriteToLog(ImportLogEntry importLogEntry)
