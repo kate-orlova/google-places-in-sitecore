@@ -34,6 +34,7 @@ namespace GooglePlacesImport.Importers
             var placesSearchLog = new List<ImportLogEntry>();
             var itemsWithPlaceId = _googlePlacesService.PopulateGooglePlacesIds(existingItemsDtos, true, ref placesSearchLog);
             var itemsWithPlaceData = _googlePlacesService.PopulateGooglePlacesData(itemsWithPlaceId, ref placesSearchLog);
+            log.Entries.AddRange(placesSearchLog);
             return log;
         }
         private void WriteToLog(ImportLogEntry importLogEntry)
