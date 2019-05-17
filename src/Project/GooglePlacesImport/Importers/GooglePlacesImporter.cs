@@ -28,6 +28,7 @@ namespace GooglePlacesImport.Importers
         public ImportLog Run()
         {
             var log = new ImportLog();
+            var existingItems = _googlePlacesItemProcessor.GetExistItems();
             return log;
         }
         private void WriteToLog(ImportLogEntry importLogEntry)
