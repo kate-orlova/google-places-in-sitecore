@@ -46,6 +46,8 @@ namespace GooglePlacesImport.Importers
                     Id = item.Id,
                     Message = $"{itemDto.CompanyName} - Google Place data has been imported successfully"
                 };
+                WriteToLog(importLogEntry);
+                log.Entries.Add(importLogEntry);
             }
 
             return log;
