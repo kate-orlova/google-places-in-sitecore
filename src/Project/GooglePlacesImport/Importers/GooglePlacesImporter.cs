@@ -3,6 +3,7 @@ using GooglePlacesImport.Interfaces;
 using Importer.Importers;
 using Importer.Models;
 using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Importer.Enums;
 using log4net;
@@ -29,6 +30,7 @@ namespace GooglePlacesImport.Importers
         {
             var log = new ImportLog();
             var existingItems = _googlePlacesItemProcessor.GetExistItems();
+            var existingItemsDtos = _mapper.Map<IEnumerable<ItemDto>>(existingItems);
             return log;
         }
         private void WriteToLog(ImportLogEntry importLogEntry)
