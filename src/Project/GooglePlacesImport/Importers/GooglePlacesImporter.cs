@@ -39,6 +39,13 @@ namespace GooglePlacesImport.Importers
             foreach (var itemDto in itemsWithPlaceData)
             {
                 var item = _googlePlacesItemProcessor.ProcessItem(itemDto);
+                var importLogEntry = new ImportLogEntry
+                {
+                    Level = MessageLevel.Info,
+                    Action = ImportAction.Imported,
+                    Id = item.Id,
+                    Message = $"{itemDto.CompanyName} - Google Place data has been imported successfully"
+                };
             }
 
             return log;
