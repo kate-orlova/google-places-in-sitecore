@@ -31,6 +31,7 @@ namespace GooglePlacesImport.Importers
             var log = new ImportLog();
             var existingItems = _googlePlacesItemProcessor.GetExistItems();
             var existingItemsDtos = _mapper.Map<IEnumerable<ItemDto>>(existingItems);
+            var placesSearchLog = new List<ImportLogEntry>();
             return log;
         }
         private void WriteToLog(ImportLogEntry importLogEntry)
