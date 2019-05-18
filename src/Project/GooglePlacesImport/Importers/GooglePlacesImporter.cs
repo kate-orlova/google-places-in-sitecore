@@ -49,7 +49,7 @@ namespace GooglePlacesImport.Importers
                     Level = MessageLevel.Info,
                     Action = ImportAction.Imported,
                     Id = item.Id,
-                    Message = $"{itemDto.CompanyName} - Google Place data has been imported successfully"
+                    Message = $"{itemDto.CompanyName} - Google Place data has been imported successfully, time taken is {sw.ElapsedMilliseconds} m"
                 };
                 WriteToLog(importLogEntry);
                 log.Entries.Add(importLogEntry);
