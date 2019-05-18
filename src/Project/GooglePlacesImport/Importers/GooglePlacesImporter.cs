@@ -43,6 +43,7 @@ namespace GooglePlacesImport.Importers
                 sw.Start();
 
                 var item = _googlePlacesItemProcessor.ProcessItem(itemDto);
+                sw.Stop();
                 var importLogEntry = new ImportLogEntry
                 {
                     Level = MessageLevel.Info,
