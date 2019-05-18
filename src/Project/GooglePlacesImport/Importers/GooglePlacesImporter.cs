@@ -4,6 +4,7 @@ using Importer.Importers;
 using Importer.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using AutoMapper;
 using Importer.Enums;
 using log4net;
@@ -38,6 +39,9 @@ namespace GooglePlacesImport.Importers
 
             foreach (var itemDto in itemsWithPlaceData)
             {
+                var sw = new Stopwatch();
+                sw.Start();
+
                 var item = _googlePlacesItemProcessor.ProcessItem(itemDto);
                 var importLogEntry = new ImportLogEntry
                 {
