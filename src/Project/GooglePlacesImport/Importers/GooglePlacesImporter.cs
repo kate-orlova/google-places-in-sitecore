@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using AutoMapper;
 using Importer.Enums;
+using Importer.Extensions;
 using log4net;
 
 namespace GooglePlacesImport.Importers
@@ -61,6 +62,16 @@ namespace GooglePlacesImport.Importers
                 catch (ImportLogException e)
                 {
                     var importLogEntry = e.Entry;
+                    WriteToLog(importLogEntry);
+                    log.Entries.Add(importLogEntry);
+                }
+                catch (Exception e)
+                {
+                    var importLogEntry = new ImportLogEntry
+                    {
+                        Level = MessageLevel.Error,
+                        Message = $"{this.GetType()}: {e.GetAllMessages()} {e.StackTrace}"
+                    };
                     WriteToLog(importLogEntry);
                     log.Entries.Add(importLogEntry);
                 }
