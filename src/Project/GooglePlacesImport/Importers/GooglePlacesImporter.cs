@@ -42,17 +42,28 @@ namespace GooglePlacesImport.Importers
                 var sw = new Stopwatch();
                 sw.Start();
 
-                var item = _googlePlacesItemProcessor.ProcessItem(itemDto);
-                sw.Stop();
-                var importLogEntry = new ImportLogEntry
+                try
                 {
-                    Level = MessageLevel.Info,
-                    Action = ImportAction.Imported,
-                    Id = item.Id,
-                    Message = $"{itemDto.CompanyName} - Google Place data has been imported successfully, time taken is {sw.ElapsedMilliseconds} m"
-                };
-                WriteToLog(importLogEntry);
-                log.Entries.Add(importLogEntry);
+                    var item = _googlePlacesItemProcessor.ProcessItem(itemDto);
+
+                    sw.Stop();
+                    var importLogEntry = new ImportLogEntry
+                    {
+                        Level = MessageLevel.Info,
+                        Action = ImportAction.Imported,
+                        Id = item.Id,
+                        Message =
+                            $"{itemDto.CompanyName} - Google Place data has been imported successfully, time taken is {sw.ElapsedMilliseconds} m"
+                    };
+                    WriteToLog(importLogEntry);
+                    log.Entries.Add(importLogEntry);
+                }
+                catch (ImportLogException e)
+                {
+                    var importLogEntry = e.Entry;
+                    WriteToLog(importLogEntry);
+                    log.Entries.Add(importLogEntry);
+                }
             }
 
             return log;
