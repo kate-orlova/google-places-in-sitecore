@@ -121,6 +121,7 @@
     <Compile Include="Models\DebugLog.cs" />
     <Compile Include="Models\GooglePlacesGetByIdResponse.cs" />
     <Compile Include="Models\GooglePlacesSearchResponse.cs" />
+    <Compile Include="Models\GooglePlacesSettings.cs" />
     <Compile Include="Models\OpeningHours.cs" />
     <Compile Include="Models\Period.cs" />
     <Compile Include="Models\Result.cs" />
