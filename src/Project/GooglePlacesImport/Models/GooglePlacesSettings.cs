@@ -1,6 +1,10 @@
-﻿namespace GooglePlacesImport.Models
+﻿using Importer.Models;
+
+namespace GooglePlacesImport.Models
 {
-    public class GooglePlacesSettings
+    public class GooglePlacesSettings : GlassBase
     {
+        public string GooglePlaceSearchRequest { get; set; }
+        public string GooglePlaceDetailsByIdRequest { get; set; }
     }
 }
