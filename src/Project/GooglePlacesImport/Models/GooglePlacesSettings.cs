@@ -1,4 +1,5 @@
-﻿using Importer.Models;
+﻿using System;
+using Importer.Models;
 
 namespace GooglePlacesImport.Models
 {
@@ -8,5 +9,6 @@ namespace GooglePlacesImport.Models
         public string GooglePlaceDetailsByIdRequest { get; set; }
 
         public string GooglePlaceBasicDataFields { get; set; }
+        public Int32 GooglePlaceBasicDataCacheMinutes { get; set; }
     }
 }
