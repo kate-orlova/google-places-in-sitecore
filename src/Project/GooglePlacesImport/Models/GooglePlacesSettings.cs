@@ -6,5 +6,7 @@ namespace GooglePlacesImport.Models
     {
         public string GooglePlaceSearchRequest { get; set; }
         public string GooglePlaceDetailsByIdRequest { get; set; }
+
+        public string GooglePlaceBasicDataFields { get; set; }
     }
 }
