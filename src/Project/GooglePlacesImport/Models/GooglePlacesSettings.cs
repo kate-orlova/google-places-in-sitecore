@@ -12,5 +12,6 @@ namespace GooglePlacesImport.Models
         public string GooglePlaceContactDataFields { get; set; }
         public Int32 GooglePlaceContactDataCacheMinutes { get; set; }
         public string GooglePlaceAtmosphereDataFields { get; set; }
+        public Int32 GooglePlaceAtmosphereDataCacheMinutes { get; set; }
     }
 }
