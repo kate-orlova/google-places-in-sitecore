@@ -164,7 +164,7 @@ namespace GooglePlacesImport.SitecronTasks
 
         private void RebuildIndexes()
         {
-            throw new NotImplementedException();
+            //TODO in case of a custom index use the relevant code for its rebuild goes here
         }
     }
 }
