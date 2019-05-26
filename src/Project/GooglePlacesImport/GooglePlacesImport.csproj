@@ -115,6 +115,7 @@
     <Compile Include="DependencyInjection\RegisterServices.cs" />
     <Compile Include="Importers\GooglePlacesImporter.cs" />
     <Compile Include="Interfaces\IGooglePlacesImporter.cs" />
+    <Compile Include="Interfaces\IGooglePlacesItemProcessor.cs" />
     <Compile Include="Interfaces\IGooglePlacesService.cs" />
     <Compile Include="Models\Candidate.cs" />
     <Compile Include="Models\Close.cs" />

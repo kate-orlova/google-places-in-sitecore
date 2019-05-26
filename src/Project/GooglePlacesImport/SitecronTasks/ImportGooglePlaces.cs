@@ -15,6 +15,7 @@ using Sitecron.SitecronSettings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GooglePlacesImport.Models;
 
 
 namespace GooglePlacesImport.SitecronTasks
@@ -67,8 +68,7 @@ namespace GooglePlacesImport.SitecronTasks
                                         using (var innerScope = ServiceLocator.ServiceProvider
                                             .GetRequiredService<IServiceScopeFactory>().CreateScope())
                                         {
-                                            var logs = innerScope.ServiceProvider.GetService<IGooglePlacesImporter>()
-                                                .Run();
+                                            var logs = innerScope.ServiceProvider.GetService<IGooglePlacesImporter>().Run();
                                             var currentImportWasSuccessful =
                                                 logs.Entries != null &&
                                                 logs.Entries.Any(x => x.Action != ImportAction.Undefined);

@@ -6,6 +6,7 @@ using Sitecore.Globalization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GooglePlacesImport.Interfaces;
 
 namespace GooglePlacesImport.Processors
 {
@@ -21,8 +22,6 @@ namespace GooglePlacesImport.Processors
         protected override Func<Item, string> IdStringFromSitecoreItem { get; }
         protected override string DefaultLocation => string.Empty;
         protected override Func<ItemDto, string> ItemNameFromImportObj { get; }
-
-
         protected override bool MapDatabaseFields => true;
 
         public override Item ProcessItem(ItemDto importObj, IEnumerable<Language> languageVersions,

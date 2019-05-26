@@ -4,19 +4,18 @@ using GooglePlacesImport.Interfaces;
 using Importer.Enums;
 using Importer.Extensions;
 using Importer.Importers;
-using Importer.ImportProcessors;
 using Importer.Models;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using IGooglePlacesItemProcessor = GooglePlacesImport.Interfaces.IGooglePlacesItemProcessor;
 
 namespace GooglePlacesImport.Importers
 {
     public class GooglePlacesImporter : BaseImporter, IGooglePlacesImporter
     {
         protected readonly ILog Logger;
-        private readonly ISitecoreContext _sitecoreContext;
         private readonly IGooglePlacesItemProcessor _googlePlacesItemProcessor;
         private readonly IMapper _mapper;
         private readonly IGooglePlacesService _googlePlacesService;
@@ -25,10 +24,9 @@ namespace GooglePlacesImport.Importers
             IGooglePlacesItemProcessor googlePlacesItemProcessor, IMapper mapper,
             IGooglePlacesService googlePlacesService) : base(sitecoreContext)
         {
-            this._sitecoreContext = sitecoreContext;
-            this._googlePlacesItemProcessor = googlePlacesItemProcessor;
-            this._mapper = mapper;
-            this._googlePlacesService = googlePlacesService;
+            _googlePlacesItemProcessor = googlePlacesItemProcessor;
+            _mapper = mapper;
+            _googlePlacesService = googlePlacesService;
         }
 
         public ImportLog Run()
@@ -95,7 +93,6 @@ namespace GooglePlacesImport.Importers
                 case MessageLevel.Critical:
                     Logger.Fatal(importLogEntry.Message);
                     break;
-                case MessageLevel.Info:
                 default:
                     Logger.Info(importLogEntry.Message);
                     break;

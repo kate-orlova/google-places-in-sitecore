@@ -19,13 +19,13 @@ namespace GooglePlacesImport.Services
     public class GooglePlacesService : IGooglePlacesService
     {
         protected readonly ILog Logger;
-        protected readonly GooglePlacesSettings GooglePlacesImportSettings;
+        protected readonly GooglePlacesSettings GooglePlacesSettings;
 
         public GooglePlacesService(
             GooglePlacesSettings googlePlacesSettings)
         {
             Logger = LogManager.GetLogger("GooglePlacesImport");
-            GooglePlacesImportSettings = googlePlacesSettings;
+            GooglePlacesSettings = googlePlacesSettings;
         }
 
         public IEnumerable<ItemDto> PopulateGooglePlacesIds(IEnumerable<ItemDto> existingItems, bool reSearchPlaceId,
@@ -34,8 +34,8 @@ namespace GooglePlacesImport.Services
             ConcurrentBag<ItemDto> items;
             IEnumerable<ItemDto> itemsToSearchPlaceId;
             var logs = new ConcurrentBag<ImportLogEntry>();
-            var baseUrl = GooglePlacesImportSettings.GooglePlaceSearchRequest;
-            var key = GooglePlacesImportSettings.GoogleApiKey;
+            var baseUrl = GooglePlacesSettings.GooglePlaceSearchRequest;
+            var key = GooglePlacesSettings.GoogleApiKey;
 
             if (reSearchPlaceId)
             {
@@ -157,18 +157,18 @@ namespace GooglePlacesImport.Services
         public IEnumerable<ItemDto> PopulateGooglePlacesData(IEnumerable<ItemDto> existingItems,
             ref List<ImportLogEntry> logEntries)
         {
-            var baseUrl = GooglePlacesImportSettings.GooglePlaceSearchRequest;
-            var key = GooglePlacesImportSettings.GoogleApiKey;
+            var baseUrl = GooglePlacesSettings.GooglePlaceSearchRequest;
+            var key = GooglePlacesSettings.GoogleApiKey;
             var items = new ConcurrentBag<ItemDto>();
             var logs = new ConcurrentBag<ImportLogEntry>();
-            var basicFields = GooglePlacesImportSettings.GooglePlaceBasicDataFields; // "name,url,formatted_address"
+            var basicFields = GooglePlacesSettings.GooglePlaceBasicDataFields; // "name,url,formatted_address"
             var contactFields =
-                GooglePlacesImportSettings.GooglePlaceContactDataFields; // "formatted_phone_number,opening_hours"
-            var atmosphereFields = GooglePlacesImportSettings.GooglePlaceAtmosphereDataFields; // "rating"
-            Int32 basicDataCacheMinutes = GooglePlacesImportSettings.GooglePlaceBasicDataCacheMinutes; // 10080
-            Int32 contactDataCacheMinutes = GooglePlacesImportSettings.GooglePlaceContactDataCacheMinutes; // 10080
+                GooglePlacesSettings.GooglePlaceContactDataFields; // "formatted_phone_number,opening_hours"
+            var atmosphereFields = GooglePlacesSettings.GooglePlaceAtmosphereDataFields; // "rating"
+            Int32 basicDataCacheMinutes = GooglePlacesSettings.GooglePlaceBasicDataCacheMinutes; // 10080
+            Int32 contactDataCacheMinutes = GooglePlacesSettings.GooglePlaceContactDataCacheMinutes; // 10080
             Int32 atmosphereDataCacheMinutes =
-                GooglePlacesImportSettings.GooglePlaceAtmosphereDataCacheMinutes; // 10080
+                GooglePlacesSettings.GooglePlaceAtmosphereDataCacheMinutes; // 10080
 
             if (basicDataCacheMinutes <= 0 || contactDataCacheMinutes <= 0 || atmosphereDataCacheMinutes <= 0 ||
                 string.IsNullOrWhiteSpace(basicFields) || string.IsNullOrWhiteSpace(contactFields) ||
