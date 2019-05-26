@@ -15,7 +15,8 @@ using Sitecore.Data.Items;
 
 namespace Importer.ImportProcessors
 {
-    public abstract class BaseImportItemProcessor<TItem, TImportObj> : IBaseImportItemProcessor<TItem, TImportObj> where TItem : GlassBase, IGlassBase
+    public abstract class BaseImportItemProcessor<TItem, TImportObj> : IBaseImportItemProcessor<TItem, TImportObj>
+        where TItem : GlassBase, IGlassBase
 
     {
         protected ISitecoreContext Context { get; }
@@ -70,7 +71,8 @@ namespace Importer.ImportProcessors
             return defaultItem;
         }
 
-        protected virtual TItem MapLanguageVersionFields(TItem item, TImportObj importObj, IEnumerable<Language> languages)
+        protected virtual TItem MapLanguageVersionFields(TItem item, TImportObj importObj,
+            IEnumerable<Language> languages)
         {
             var itemName = this.ItemNameFromImportObj(importObj).Trim();
             item.DisplayName = this.AmendDisplayName(itemName);
@@ -87,6 +89,7 @@ namespace Importer.ImportProcessors
             {
                 ItemsCache[itemLocation].Add(newItem);
             }
+
             return newItem;
         }
 
@@ -147,11 +150,13 @@ namespace Importer.ImportProcessors
             {
                 return ItemsCache[rootPath];
             }
+
             var items = this.GenericItemRepository.GetByPath(rootPath, language ?? Language.Current, MapDatabaseFields);
             if (CacheItems)
             {
                 ItemsCache?.Add(rootPath, items.ToList());
             }
+
             return items;
         }
 

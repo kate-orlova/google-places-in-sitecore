@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Glass.Mapper.Sc;
-using GooglePlacesImport.Interfaces;
+﻿using Glass.Mapper.Sc;
 using Importer.Enums;
 using Importer.ImportProcessors;
 using Importer.Models;
 using Sitecore.Globalization;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GooglePlacesImport.Processors
 {
@@ -52,6 +51,7 @@ namespace GooglePlacesImport.Processors
                 defaultItem.Language = language.Name;
                 this.SaveItem(defaultItem);
             }
+
             return defaultItem;
         }
 

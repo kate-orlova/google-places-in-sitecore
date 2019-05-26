@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using GooglePlacesImport.Interfaces;
+﻿using GooglePlacesImport.Interfaces;
 using Importer.Enums;
 using Importer.Extensions;
 using Importer.Importers;
 using Importer.Loggers;
-using Quartz;
 using log4net;
 using Microsoft.Extensions.DependencyInjection;
-using Sitecore;
+using Quartz;
 using Sitecore.Data;
 using Sitecore.Data.Events;
 using Sitecore.DependencyInjection;
 using Sitecore.SecurityModel;
 using Sitecore.Sites;
 using Sitecron.SitecronSettings;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace GooglePlacesImport.SitecronTasks
@@ -119,6 +118,7 @@ namespace GooglePlacesImport.SitecronTasks
             {
                 this._logger.Error($"Sitecron - Job {nameof(ImportGooglePlaces)} - error", e);
             }
+
             this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} has finished successfully");
         }
 
@@ -159,6 +159,7 @@ namespace GooglePlacesImport.SitecronTasks
             {
                 this._logger.Error($"Sitecron - Job {nameof(ImportGooglePlaces)} - publishing error", exception);
             }
+
             this._logger.Info($"Sitecron - Job {nameof(ImportGooglePlaces)} - publishing End");
         }
 

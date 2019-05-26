@@ -6,6 +6,7 @@ namespace Importer.Models
     {
         public List<ImportLogEntry> Entries { get; set; }
         public int ImportedItems { get; set; }
+
         public ImportLog()
         {
             this.Entries = new List<ImportLogEntry>();

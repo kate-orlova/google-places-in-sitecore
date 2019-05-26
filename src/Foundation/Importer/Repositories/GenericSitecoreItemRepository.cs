@@ -9,7 +9,8 @@ using Sitecore.Data;
 
 namespace Importer.Repositories
 {
-    public class GenericSitecoreItemRepository<TItem> : IGenericSitecoreItemRepository<TItem> where TItem : GlassBase, IGlassBase
+    public class GenericSitecoreItemRepository<TItem> : IGenericSitecoreItemRepository<TItem>
+        where TItem : GlassBase, IGlassBase
     {
         private readonly ISitecoreContext context;
         private readonly IBaseSearchManager<TItem> searchManager;
@@ -27,7 +28,8 @@ namespace Importer.Repositories
 
         public IEnumerable<TItem> GetByPath(string path, Language language = null, bool mapDatabaseFields = false)
         {
-            return searchManager.GetAllWithTemplate(path: path, mapResults: mapDatabaseFields, language: language).ToList();
+            return searchManager.GetAllWithTemplate(path: path, mapResults: mapDatabaseFields, language: language)
+                .ToList();
         }
 
         public TItem GetOneByQuery(string query)

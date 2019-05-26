@@ -27,7 +27,9 @@ namespace GooglePlacesImport.Services
             Logger = LogManager.GetLogger("GooglePlacesImport");
             GooglePlacesImportSettings = googlePlacesSettings;
         }
-        public IEnumerable<ItemDto> PopulateGooglePlacesIds(IEnumerable<ItemDto> existingItems, bool reSearchPlaceId, ref List<ImportLogEntry> logEntries)
+
+        public IEnumerable<ItemDto> PopulateGooglePlacesIds(IEnumerable<ItemDto> existingItems, bool reSearchPlaceId,
+            ref List<ImportLogEntry> logEntries)
         {
             ConcurrentBag<ItemDto> items;
             IEnumerable<ItemDto> itemsToSearchPlaceId;
@@ -152,18 +154,21 @@ namespace GooglePlacesImport.Services
             return items;
         }
 
-        public IEnumerable<ItemDto> PopulateGooglePlacesData(IEnumerable<ItemDto> existingItems, ref List<ImportLogEntry> logEntries)
+        public IEnumerable<ItemDto> PopulateGooglePlacesData(IEnumerable<ItemDto> existingItems,
+            ref List<ImportLogEntry> logEntries)
         {
             var baseUrl = GooglePlacesImportSettings.GooglePlaceSearchRequest;
             var key = GooglePlacesImportSettings.GoogleApiKey;
             var items = new ConcurrentBag<ItemDto>();
             var logs = new ConcurrentBag<ImportLogEntry>();
             var basicFields = GooglePlacesImportSettings.GooglePlaceBasicDataFields; // "name,url,formatted_address"
-            var contactFields = GooglePlacesImportSettings.GooglePlaceContactDataFields; // "formatted_phone_number,opening_hours"
+            var contactFields =
+                GooglePlacesImportSettings.GooglePlaceContactDataFields; // "formatted_phone_number,opening_hours"
             var atmosphereFields = GooglePlacesImportSettings.GooglePlaceAtmosphereDataFields; // "rating"
             Int32 basicDataCacheMinutes = GooglePlacesImportSettings.GooglePlaceBasicDataCacheMinutes; // 10080
             Int32 contactDataCacheMinutes = GooglePlacesImportSettings.GooglePlaceContactDataCacheMinutes; // 10080
-            Int32 atmosphereDataCacheMinutes = GooglePlacesImportSettings.GooglePlaceAtmosphereDataCacheMinutes; // 10080
+            Int32 atmosphereDataCacheMinutes =
+                GooglePlacesImportSettings.GooglePlaceAtmosphereDataCacheMinutes; // 10080
 
             if (basicDataCacheMinutes <= 0 || contactDataCacheMinutes <= 0 || atmosphereDataCacheMinutes <= 0 ||
                 string.IsNullOrWhiteSpace(basicFields) || string.IsNullOrWhiteSpace(contactFields) ||

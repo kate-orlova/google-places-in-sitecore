@@ -20,10 +20,12 @@ namespace GooglePlacesImport.Importers
         private readonly IMapper _mapper;
         private readonly IGooglePlacesService _googlePlacesService;
 
-        public GooglePlacesImporter(ISitecoreContext sitecoreContext, IGooglePlacesItemProcessor googlePlacesItemProcessor, IMapper mapper, IGooglePlacesService googlePlacesService) : base(sitecoreContext)
+        public GooglePlacesImporter(ISitecoreContext sitecoreContext,
+            IGooglePlacesItemProcessor googlePlacesItemProcessor, IMapper mapper,
+            IGooglePlacesService googlePlacesService) : base(sitecoreContext)
         {
             this._sitecoreContext = sitecoreContext;
-           this._googlePlacesItemProcessor = googlePlacesItemProcessor;
+            this._googlePlacesItemProcessor = googlePlacesItemProcessor;
             this._mapper = mapper;
             this._googlePlacesService = googlePlacesService;
         }
@@ -34,8 +36,10 @@ namespace GooglePlacesImport.Importers
             var existingItems = _googlePlacesItemProcessor.GetExistItems();
             var existingItemsDtos = _mapper.Map<IEnumerable<ItemDto>>(existingItems);
             var placesSearchLog = new List<ImportLogEntry>();
-            var itemsWithPlaceId = _googlePlacesService.PopulateGooglePlacesIds(existingItemsDtos, true, ref placesSearchLog);
-            var itemsWithPlaceData = _googlePlacesService.PopulateGooglePlacesData(itemsWithPlaceId, ref placesSearchLog);
+            var itemsWithPlaceId =
+                _googlePlacesService.PopulateGooglePlacesIds(existingItemsDtos, true, ref placesSearchLog);
+            var itemsWithPlaceData =
+                _googlePlacesService.PopulateGooglePlacesData(itemsWithPlaceId, ref placesSearchLog);
             log.Entries.AddRange(placesSearchLog);
 
             foreach (var itemDto in itemsWithPlaceData)
@@ -79,6 +83,7 @@ namespace GooglePlacesImport.Importers
 
             return log;
         }
+
         private void WriteToLog(ImportLogEntry importLogEntry)
         {
             switch (importLogEntry.Level)

@@ -44,13 +44,14 @@ namespace Importer.Importers
                         $"Publishing item \"{rootItem.Paths.FullPath}\" [ID:{rootItem.ID}], pulishing mode: {mode}..."
                 });
                 var targetDatabase = Factory.GetDatabase(Constants.Sitecore.Databases.Web);
-                var options = new PublishOptions(rootItem.Database, targetDatabase, mode, rootItem.Language, DateTime.Now)
-                {
-                    RootItem = rootItem,
-                    Deep = true,
-                    PublishRelatedItems = publishRelatedItems,
-                    RepublishAll = republishAll,
-                };
+                var options =
+                    new PublishOptions(rootItem.Database, targetDatabase, mode, rootItem.Language, DateTime.Now)
+                    {
+                        RootItem = rootItem,
+                        Deep = true,
+                        PublishRelatedItems = publishRelatedItems,
+                        RepublishAll = republishAll,
+                    };
                 var sw = new Stopwatch();
                 sw.Start();
                 var publisher = new Publisher(options);
@@ -64,7 +65,7 @@ namespace Importer.Importers
                 sb.AppendLine($"Items updated: {publishResult.Statistics.Updated}");
                 sb.AppendLine($"Items deleted: {publishResult.Statistics.Deleted}");
                 sb.AppendLine($"Time taken: {sw.ElapsedMilliseconds} ms");
-                logs.Add(new ImportLogEntry { Level = MessageLevel.Info, Message = sb.ToString() });
+                logs.Add(new ImportLogEntry {Level = MessageLevel.Info, Message = sb.ToString()});
             }
             catch (Exception exception)
             {

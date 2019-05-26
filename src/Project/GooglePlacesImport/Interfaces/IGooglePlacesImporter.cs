@@ -3,7 +3,7 @@ using Importer.Models;
 
 namespace GooglePlacesImport.Interfaces
 {
-    public interface IGooglePlacesImporter: IImporter
+    public interface IGooglePlacesImporter : IImporter
     {
         ImportLog Run();
     }

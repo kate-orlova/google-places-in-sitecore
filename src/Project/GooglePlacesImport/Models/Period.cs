@@ -2,7 +2,7 @@
 
 namespace GooglePlacesImport.Models
 {
-    public partial class Period
+    public class Period
     {
         [JsonProperty("close", NullValueHandling = NullValueHandling.Ignore)]
         public Close Close { get; set; }
