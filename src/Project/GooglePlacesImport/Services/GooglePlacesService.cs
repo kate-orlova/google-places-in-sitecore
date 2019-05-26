@@ -35,7 +35,6 @@ namespace GooglePlacesImport.Services
             var baseUrl = GooglePlacesImportSettings.GooglePlaceSearchRequest;
             var key = GooglePlacesImportSettings.GoogleApiKey;
 
-
             if (reSearchPlaceId)
             {
                 itemsToSearchPlaceId = existingItems;
@@ -155,16 +154,16 @@ namespace GooglePlacesImport.Services
 
         public IEnumerable<ItemDto> PopulateGooglePlacesData(IEnumerable<ItemDto> existingItems, ref List<ImportLogEntry> logEntries)
         {
-            var baseUrl = "BASE_URL";
-            var key = "GOOGLE_API_KEY";
+            var baseUrl = GooglePlacesImportSettings.GooglePlaceSearchRequest;
+            var key = GooglePlacesImportSettings.GoogleApiKey;
             var items = new ConcurrentBag<ItemDto>();
             var logs = new ConcurrentBag<ImportLogEntry>();
-            var basicFields = "name,url,formatted_address";
-            var contactFields = "formatted_phone_number,opening_hours";
-            var atmosphereFields = "rating";
-            Int32 basicDataCacheMinutes = 10080;
-            Int32 contactDataCacheMinutes = 10080;
-            Int32 atmosphereDataCacheMinutes = 10080;
+            var basicFields = GooglePlacesImportSettings.GooglePlaceBasicDataFields; // "name,url,formatted_address"
+            var contactFields = GooglePlacesImportSettings.GooglePlaceContactDataFields; // "formatted_phone_number,opening_hours"
+            var atmosphereFields = GooglePlacesImportSettings.GooglePlaceAtmosphereDataFields; // "rating"
+            Int32 basicDataCacheMinutes = GooglePlacesImportSettings.GooglePlaceBasicDataCacheMinutes; // 10080
+            Int32 contactDataCacheMinutes = GooglePlacesImportSettings.GooglePlaceContactDataCacheMinutes; // 10080
+            Int32 atmosphereDataCacheMinutes = GooglePlacesImportSettings.GooglePlaceAtmosphereDataCacheMinutes; // 10080
 
             if (basicDataCacheMinutes <= 0 || contactDataCacheMinutes <= 0 || atmosphereDataCacheMinutes <= 0 ||
                 string.IsNullOrWhiteSpace(basicFields) || string.IsNullOrWhiteSpace(contactFields) ||
