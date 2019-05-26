@@ -32,39 +32,37 @@ namespace Importer.ImportProcessors
 
         protected static readonly Regex MultipleWhitespacesRegex = new Regex(@"\s+", RegexOptions.Compiled);
 
-        protected virtual string ItemLocation =>
-            this.LocationPathOverride
-            ?? this.DefaultLocation;
+        protected virtual string ItemLocation => LocationPathOverride ?? DefaultLocation;
 
         protected BaseImportItemProcessor(ISitecoreContext sitecoreContext, string locationPathOverride = null)
         {
-            this.Context = sitecoreContext;
-            this.LocationPathOverride = locationPathOverride;
-            this.ItemsCache = new Dictionary<string, IList<TItem>>();
+            Context = sitecoreContext;
+            LocationPathOverride = locationPathOverride;
+            ItemsCache = new Dictionary<string, IList<TItem>>();
             var searchManager = ServiceLocator.ServiceProvider.GetService<IBaseSearchManager<TItem>>();
-            this.GenericItemRepository = new GenericSitecoreItemRepository<TItem>(sitecoreContext, searchManager);
+            GenericItemRepository = new GenericSitecoreItemRepository<TItem>(sitecoreContext, searchManager);
         }
 
         public virtual TItem ProcessItem(TImportObj importObj, IEnumerable<Language> languageVersions,
             string pathOverride = null)
         {
             var defaultLanguage = LanguageManager.DefaultLanguage;
-            var newId = this.CalculateItemId(importObj);
-            var itemLocationInTargetContext = pathOverride ?? this.CalculateItemLocation(importObj);
-            var defaultItem = this.GetItem(newId, importObj, itemLocationInTargetContext, defaultLanguage)
-                              ?? this.CreateItem(importObj, itemLocationInTargetContext, defaultLanguage);
-            defaultItem = this.MapDefaultVersionFields(defaultItem, importObj);
+            var newId = CalculateItemId(importObj);
+            var itemLocationInTargetContext = pathOverride ?? CalculateItemLocation(importObj);
+            var defaultItem = GetItem(newId, importObj, itemLocationInTargetContext, defaultLanguage)
+                              ?? CreateItem(importObj, itemLocationInTargetContext, defaultLanguage);
+            defaultItem = MapDefaultVersionFields(defaultItem, importObj);
             defaultItem.Language = defaultLanguage.Name;
-            this.SaveItem(defaultItem);
+            SaveItem(defaultItem);
 
             var languageList = languageVersions ?? new List<Language>();
             if (languageList.Any())
             {
-                var languageItem = this.MapLanguageVersionFields(defaultItem, importObj, languageList);
+                var languageItem = MapLanguageVersionFields(defaultItem, importObj, languageList);
                 foreach (var language in languageList)
                 {
                     languageItem.Language = language.Name;
-                    this.SaveItem(languageItem);
+                    SaveItem(languageItem);
                 }
             }
 
@@ -74,17 +72,17 @@ namespace Importer.ImportProcessors
         protected virtual TItem MapLanguageVersionFields(TItem item, TImportObj importObj,
             IEnumerable<Language> languages)
         {
-            var itemName = this.ItemNameFromImportObj(importObj).Trim();
-            item.DisplayName = this.AmendDisplayName(itemName);
-            item.DisplayNameString = this.AmendDisplayName(itemName);
+            var itemName = ItemNameFromImportObj(importObj).Trim();
+            item.DisplayName = AmendDisplayName(itemName);
+            item.DisplayNameString = AmendDisplayName(itemName);
             return item;
         }
 
         protected TItem CreateItem(TImportObj importObj, string itemLocationOverride = null, Language language = null)
         {
-            var newItemName = this.ProposeSitecoreItemName(this.ItemNameFromImportObj(importObj));
-            var itemLocation = itemLocationOverride ?? this.CalculateItemLocation(importObj);
-            var newItem = this.GenericItemRepository.Create(newItemName, itemLocation, language);
+            var newItemName = ProposeSitecoreItemName(ItemNameFromImportObj(importObj));
+            var itemLocation = itemLocationOverride ?? CalculateItemLocation(importObj);
+            var newItem = GenericItemRepository.Create(newItemName, itemLocation, language);
             if (CacheItems && ItemsCache != null && ItemsCache.ContainsKey(itemLocation))
             {
                 ItemsCache[itemLocation].Add(newItem);
@@ -95,7 +93,7 @@ namespace Importer.ImportProcessors
 
         protected TItem SaveItem(TItem updatedItem)
         {
-            this.GenericItemRepository.Save(updatedItem);
+            GenericItemRepository.Save(updatedItem);
             return updatedItem;
         }
 
@@ -117,10 +115,10 @@ namespace Importer.ImportProcessors
             Func<TItem, bool> defaultItemSelector = null)
         {
             if (string.IsNullOrEmpty(targetIdString)) return null;
-            var itemLocation = locationOverride ?? this.CalculateItemLocation(importObj);
-            var items = this.GetItems(itemLocation, language);
+            var itemLocation = locationOverride ?? CalculateItemLocation(importObj);
+            var items = GetItems(itemLocation, language);
             var matchedItems = items.Where(x =>
-                    targetIdString.Equals(this.CalculateItemId(x), StringComparison.OrdinalIgnoreCase))
+                    targetIdString.Equals(CalculateItemId(x), StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
             if (!matchedItems.Any() && defaultItemSelector != null)
@@ -136,7 +134,7 @@ namespace Importer.ImportProcessors
                     {
                         Level = MessageLevel.Error,
                         Message =
-                            $"{this.GetType()}: Multiple matches have been found in \"{itemLocation}\" by Id=\"{targetIdString}\""
+                            $"{GetType()}: Multiple matches have been found in \"{itemLocation}\" by Id=\"{targetIdString}\""
                     }
                 };
             }
@@ -151,7 +149,7 @@ namespace Importer.ImportProcessors
                 return ItemsCache[rootPath];
             }
 
-            var items = this.GenericItemRepository.GetByPath(rootPath, language ?? Language.Current, MapDatabaseFields);
+            var items = GenericItemRepository.GetByPath(rootPath, language ?? Language.Current, MapDatabaseFields);
             if (CacheItems)
             {
                 ItemsCache?.Add(rootPath, items.ToList());
@@ -162,17 +160,17 @@ namespace Importer.ImportProcessors
 
         protected string CalculateItemId(TItem item)
         {
-            return this.IdStringFromSitecoreItem(item);
+            return IdStringFromSitecoreItem(item);
         }
 
         protected string CalculateItemId(TImportObj importObj)
         {
-            return this.IdStringFromImportObj(importObj);
+            return IdStringFromImportObj(importObj);
         }
 
         protected virtual string CalculateItemLocation(TImportObj importObj)
         {
-            return this.ItemLocation;
+            return ItemLocation;
         }
 
         protected virtual string AmendDisplayName(string name)

@@ -30,13 +30,13 @@ namespace Importer.Loggers
 
             foreach (var generalMessage in generalMessages)
             {
-                this.logger.Info(generalMessage.Message);
+                logger.Info(generalMessage.Message);
             }
 
             var stats = new StringBuilder();
             if (imported.Any() || rejected.Any() || deleted.Any())
             {
-                stats.AppendLine(this.logger.Logger.Name);
+                stats.AppendLine(logger.Logger.Name);
                 stats.AppendLine($"{imported.Count} imported");
                 stats.AppendLine($"{rejected.Count} rejected");
                 stats.AppendLine($"{deleted.Count} deleted");
@@ -63,7 +63,7 @@ namespace Importer.Loggers
                 }
             }
 
-            this.logger.Info(stats.ToString());
+            logger.Info(stats.ToString());
         }
     }
 }

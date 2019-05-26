@@ -9,8 +9,8 @@ namespace Importer.Models
 
         public ImportLog()
         {
-            this.Entries = new List<ImportLogEntry>();
-            this.ImportedItems = 0;
+            Entries = new List<ImportLogEntry>();
+            ImportedItems = 0;
         }
     }
 }
