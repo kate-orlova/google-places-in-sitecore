@@ -32,8 +32,8 @@ namespace GooglePlacesImport.Services
             ConcurrentBag<ItemDto> items;
             IEnumerable<ItemDto> itemsToSearchPlaceId;
             var logs = new ConcurrentBag<ImportLogEntry>();
-            var baseUrl = "BASE_URL";
-            var key = "GOOGLE_API_KEY";
+            var baseUrl = GooglePlacesImportSettings.GooglePlaceSearchRequest;
+            var key = GooglePlacesImportSettings.GoogleApiKey;
 
 
             if (reSearchPlaceId)
