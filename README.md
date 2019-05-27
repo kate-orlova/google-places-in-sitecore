@@ -13,15 +13,15 @@ The taken approach is based on [SiteCron](https://www.nuget.org/packages/SiteCro
 
 ## Configuration
 Configuration settings are defined via a Sitecore Item _..\src\Project\GooglePlacesImport\Models\GooglePlacesSettings.cs_, so that one can easy adjust them for their needs:
-* **GoogleApiKey**
-* **GooglePlaceSearchRequest**
+* **GoogleApiKey** - your Google API Key
+* **GooglePlaceSearchRequest**, for example, _https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key={0}&input={1}&inputtype=textquery&fields=place_id&locationbias=circle:1000@{2},{3}_
 * **GooglePlaceDetailsByIdRequest**, for example, _https://maps.googleapis.com/maps/api/place/details/json?key={0}&placeid={1}&fields={2}_
 * **GooglePlaceBasicDataFields**, for example, _"name,url,formatted_address"_
-* **GooglePlaceBasicDataCacheMinutes**, for example, 10080
+* **GooglePlaceBasicDataCacheMinutes**, for example, _10080_
 * **GooglePlaceContactDataFields**, for examplhttps://maps.googleapis.com/maps/api/place/details/json?key={0}&placeid={1}&fields={2}e, _"formatted_phone_number,opening_hours"_
-* **GooglePlaceContactDataCacheMinutes**, for example, 10080
+* **GooglePlaceContactDataCacheMinutes**, for example, _10080_
 * **GooglePlaceAtmosphereDataFields**, for example, _"rating"_
-* **GooglePlaceAtmosphereDataCacheMinutes**, for example, 10080
+* **GooglePlaceAtmosphereDataCacheMinutes**, for example, _10080_
 
 # Contribution
 Hope you found this module useful, your contributions and suggestions will be very much appreciated. Please submit a pull request.
