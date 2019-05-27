@@ -15,10 +15,10 @@ The taken approach is based on [SiteCron](https://www.nuget.org/packages/SiteCro
 Configuration settings are defined via a Sitecore Item _..\src\Project\GooglePlacesImport\Models\GooglePlacesSettings.cs_, so that one can easy adjust them for their needs:
 * **GoogleApiKey**
 * **GooglePlaceSearchRequest**
-* **GooglePlaceDetailsByIdRequest**
+* **GooglePlaceDetailsByIdRequest**, for example, _https://maps.googleapis.com/maps/api/place/details/json?key={0}&placeid={1}&fields={2}_
 * **GooglePlaceBasicDataFields**, for example, _"name,url,formatted_address"_
 * **GooglePlaceBasicDataCacheMinutes**, for example, 10080
-* **GooglePlaceContactDataFields**, for example, _"formatted_phone_number,opening_hours"_
+* **GooglePlaceContactDataFields**, for examplhttps://maps.googleapis.com/maps/api/place/details/json?key={0}&placeid={1}&fields={2}e, _"formatted_phone_number,opening_hours"_
 * **GooglePlaceContactDataCacheMinutes**, for example, 10080
 * **GooglePlaceAtmosphereDataFields**, for example, _"rating"_
 * **GooglePlaceAtmosphereDataCacheMinutes**, for example, 10080
