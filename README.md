@@ -18,7 +18,7 @@ Configuration settings are defined via a Sitecore Item _..\src\Project\GooglePla
 * **GooglePlaceDetailsByIdRequest**, for example, _https://maps.googleapis.com/maps/api/place/details/json?key={0}&placeid={1}&fields={2}_
 * **GooglePlaceBasicDataFields**, for example, _"name,url,formatted_address"_
 * **GooglePlaceBasicDataCacheMinutes**, for example, _10080_
-* **GooglePlaceContactDataFields**, for examplhttps://maps.googleapis.com/maps/api/place/details/json?key={0}&placeid={1}&fields={2}e, _"formatted_phone_number,opening_hours"_
+* **GooglePlaceContactDataFields**, for example, _"formatted_phone_number,opening_hours"_
 * **GooglePlaceContactDataCacheMinutes**, for example, _10080_
 * **GooglePlaceAtmosphereDataFields**, for example, _"rating"_
 * **GooglePlaceAtmosphereDataCacheMinutes**, for example, _10080_
