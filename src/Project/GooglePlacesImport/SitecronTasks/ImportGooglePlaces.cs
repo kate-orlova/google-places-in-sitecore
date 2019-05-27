@@ -15,8 +15,6 @@ using Sitecron.SitecronSettings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GooglePlacesImport.Models;
-
 
 namespace GooglePlacesImport.SitecronTasks
 {
