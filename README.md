@@ -17,11 +17,11 @@ Configuration settings are defined via a Sitecore Item _..\src\Project\GooglePla
 * **GooglePlaceSearchRequest**
 * **GooglePlaceDetailsByIdRequest**
 * **GooglePlaceBasicDataFields**, for example, _"name,url,formatted_address"_
-* **GooglePlaceBasicDataCacheMinutes**
+* **GooglePlaceBasicDataCacheMinutes**, for example, 10080
 * **GooglePlaceContactDataFields**, for example, _"formatted_phone_number,opening_hours"_
-* **GooglePlaceContactDataCacheMinutes**
+* **GooglePlaceContactDataCacheMinutes**, for example, 10080
 * **GooglePlaceAtmosphereDataFields**, for example, _"rating"_
-* **GooglePlaceAtmosphereDataCacheMinutes**
+* **GooglePlaceAtmosphereDataCacheMinutes**, for example, 10080
 
 # Contribution
 Hope you found this module useful, your contributions and suggestions will be very much appreciated. Please submit a pull request.
