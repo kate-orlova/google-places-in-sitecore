@@ -5,7 +5,7 @@
 ![HitHub repo size](https://img.shields.io/github/repo-size/kate-orlova/google-places-in-sitecore.svg?style=flat)
 
 # Google Places in Sitecore
-Google Places in Sitecore module is an open source project about [Google Places](https://cloud.google.com/maps-platform/places/) integration with Sitecore.
+Google Places in Sitecore module is an open source project about [Google Places](https://cloud.google.com/maps-platform/places/) integration with Sitecore. It allows to bring the rich details of points of interests worldwide to a Sitecore-powered website, so that its visitors can easily explore the world around them.
 
 The taken approach is based on [SiteCron](https://www.nuget.org/packages/SiteCron) module providing an advanced execution of scheduled tasks in Sitecore. The solution adheres to [Helix](https://helix.sitecore.net/) principles and consists of:
 1. **Foundation layer** with an _Importer_ project implementing the core models, repositories and import processors;
