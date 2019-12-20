@@ -1,3 +1,4 @@
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/kate-orlova/google-places-in-sitecore)
 [![GitHub release](https://img.shields.io/github/release-date/kate-orlova/google-places-in-sitecore.svg?style=flat)](https://github.com/kate-orlova/google-places-in-sitecore/releases/tag/v1.0)
 [![GitHub license](https://img.shields.io/github/license/kate-orlova/google-places-in-sitecore.svg)](https://github.com/kate-orlova/google-places-in-sitecore/blob/master/LICENSE)
 ![GitHub language count](https://img.shields.io/github/languages/count/kate-orlova/google-places-in-sitecore.svg?style=flat)
